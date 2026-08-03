@@ -8,13 +8,16 @@ versions follow [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ### Added
 
-- Durable roadmap covering Phase 0, Projects 1–7, progressive Codex autonomy,
-  the task workflow, safety rules, and project assessments.
+- Project 3 requirements, architecture, service and delivery stack decision,
+  and seven-issue implementation plan.
+- A self-contained project introduction covering purpose, behaviour,
+  usefulness, intended usage, and safety boundaries.
 
 ### Changed
 
-- Marked Phase 0 complete after the successful manual terminal-restart exercise
-  and handed off to Project 1 planning.
+- Replaced the reusable starter hand-off with Project 3 status and Issue 001 as
+  the exact next implementation step.
+- Made the root README the required primary user entry point for future work.
 
 ## [0.1.0] - 2026-08-01
 

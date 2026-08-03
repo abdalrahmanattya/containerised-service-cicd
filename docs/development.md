@@ -1,139 +1,83 @@
 # Development guide
 
-This guide turns the working method into repeatable steps. Run commands from
-the repository root unless a step says otherwise.
+Run commands from the repository root unless a step says otherwise. This file
+distinguishes commands that work now from tools planned for later issues.
 
-## Prerequisites
+## Current prerequisites
 
-- macOS Terminal or another POSIX-compatible shell
+- A POSIX-compatible shell
 - Git
-- Codex for the interactive resume exercise
 
-No package manager, cloud command-line tool, remote repository, or credentials
-are required in Phase 0.
+The current machine has Git and Python 3.9.6. Project application development
+will target Python 3.11 or newer. Docker, Ruff, pytest, `uv`, Hadolint, and Trivy
+were not available when planning was recorded. Do not treat those tools as
+installed and do not install them without reviewing Issue 001 or the relevant
+delivery issue first.
+
+No remote repository, registry, cloud account, or credentials are required.
 
 ## Begin a work session
 
-1. Move into the repository.
-2. Inspect `git status --short --branch`.
-3. Read `AGENTS.md` and the **Resume here** section of the journal.
-4. Read recent history with `git log --oneline --decorate -5`.
-5. State one small outcome and how you will verify it.
+1. Inspect `git status --short --branch`.
+2. Read `AGENTS.md` and the journal's **Resume here** section.
+3. Read recent history with `git log --oneline --decorate -5`.
+4. Read the current issue and state its small outcome and acceptance criteria.
+5. Inspect unexpected changes before doing anything else.
 
-If Git reports an unexpected change, inspect it before doing anything else.
-It may belong to you or to another unfinished task.
+## Current verification
 
-## Make and review a change
-
-```sh
-# See unstaged changes
-git diff
-
-# Stage only the intended paths
-git add path/to/file
-
-# Review exactly what the commit would contain
-git diff --staged
-
-# Commit after verification
-git commit -m "docs: describe the small outcome"
-```
-
-`git add .` is convenient, but explicit paths are easier to audit while
-learning. A commit should answer one question: "What single outcome did this
-change produce?"
-
-## Local verification
-
-Run the structural context check:
+Only documentation and planning checks are available before Issue 001:
 
 ```sh
 ./scripts/test-context-resume.sh
-```
-
-Also check formatting errors and repository state:
-
-```sh
 git diff --check
 git status --short --branch
 ```
 
-The script is intentionally simple. It confirms that the durable files and key
-resume instructions exist. It cannot judge whether Codex understood them, so
-the manual exercise below completes the test.
+## Planned application commands
+
+Issue 001 will add and verify exact commands for:
+
+- creating an isolated Python 3.11-or-newer environment;
+- installing pinned runtime and development dependencies;
+- formatting and linting with Ruff;
+- running tests with pytest; and
+- starting the FastAPI application with Uvicorn.
+
+Issue 005 will add verified Docker build, run, inspection, and smoke-test
+commands. Issue 006 will document the matching CI and vulnerability-scan
+commands. Until those issues are complete, README examples are expected
+behaviour rather than executable instructions.
+
+## Review and commit loop
+
+```sh
+git diff
+git diff --check
+git add path/to/intended/file
+git diff --staged
+git commit -m "type: focused outcome"
+```
+
+Stage explicit paths so unrelated work cannot enter a commit. A feature branch
+should contain one endpoint or one delivery concern, not a mixture.
 
 ## Terminal restart context test
 
-This is a safe test of context recovery. It changes no cloud or remote system.
+1. Ensure the journal contains an accurate **Resume here** action.
+2. Run `./scripts/test-context-resume.sh`.
+3. Commit the reviewed change or clearly record why work is uncommitted.
+4. Start a fresh Codex session in this repository.
+5. Ask Codex to explain the project's purpose, rules, state, next action, and
+   working-tree status using repository evidence.
 
-### Prepare
+The exercise passes when the answer identifies Project 3, its three endpoints,
+its safety boundaries, the current issue, and the actual Git state without
+depending on the previous conversation.
 
-1. Finish or deliberately record any in-progress work.
-2. Update `docs/project-journal.md` with a precise **Resume here** action.
-3. Commit the relevant documentation.
-4. Run `./scripts/test-context-resume.sh` and `git status`.
+## External actions
 
-### Restart
-
-1. Close the terminal window and the active Codex session.
-2. Open a new terminal window.
-3. Move back into this repository.
-4. Start a new Codex session from the repository root.
-5. Give Codex this read-only request:
-
-> Orient yourself in this repository using its durable context. Do not modify
-> files. Tell me the project's purpose, working rules, current status, exact
-> next step, and whether the Git working tree contains changes. Cite the files
-> you used.
-
-### Expected evidence
-
-Codex should read `AGENTS.md` without relying on the old chat, inspect Git, and
-report all of the following:
-
-- this is an AI-assisted cloud engineering learning starter;
-- work should be small, reviewed, verified, and safely scoped;
-- the current state and next action match `docs/project-journal.md`;
-- ADR-001 makes repository files and Git the durable source of context; and
-- the reported working-tree state agrees with `git status`.
-
-The test passes when those facts are correct. If anything is missing, improve
-the relevant durable document, commit the fix, close the session, and repeat.
-
-## Optional remote work comes later
-
-Before adding or using a remote, first inspect:
-
-```sh
-git remote -v
-```
-
-An empty result is expected in Phase 0. Adding a GitHub repository, choosing
-visibility, authenticating, and pushing are separate actions that require an
-explicit decision; this starter does not perform them automatically.
-
-## Troubleshooting
-
-### Git says "Author identity unknown"
-
-Configure the identity you want stored in this repository's future commits:
-
-```sh
-git config --local user.name "Your Name"
-git config --local user.email "you@example.com"
-```
-
-### A file appears unexpectedly in `git status`
-
-Do not delete it immediately. Inspect its path and diff, decide whether it is
-work to keep, and either include it in an appropriate commit or leave it alone.
-
-### The context test is not executable
-
-Run it through the shell once:
-
-```sh
-sh scripts/test-context-resume.sh
-```
-
-Then verify that Git records executable mode after the repository setup commit.
+Inspect `git remote -v` before discussing remote execution. Configuring a
+remote, authenticating, publishing an image, or deploying are separate actions.
+They require an explicit destination, version, credential strategy, and learner
+approval; none is part of the default local workflow.

@@ -1,58 +1,63 @@
 # Project journal
 
-This is the short, current hand-off record for humans and fresh Codex sessions.
-Keep it factual. Git history preserves old states, so replace stale status
-instead of accumulating a daily transcript here.
+This is the current hand-off record for humans and fresh Codex sessions. Keep
+it factual and replace stale status rather than accumulating a transcript.
 
 ## Current status
 
-- **Phase:** 0 — AI-assisted engineering foundations
-- **State:** Complete; ready to plan Project 1
+- **Project:** 3 — Containerised Service with CI/CD
+- **State:** Planning complete; ready for Issue 001
+- **Branch:** `main`
 - **Environment:** Local macOS repository; Git author configured; no remote
-- **Safety:** No cloud resources or credentials are used
+- **Available tools:** Git and Python 3.9.6
+- **Missing planned tools:** Python 3.11+, Docker, Ruff, pytest, and Trivy
+- **Safety:** No credentials, registry, cloud resources, deployment, or image
+  publication are configured
 
 ## Completed
 
-- Initialized the repository on the `main` branch.
-- Applied a repository-local training author identity.
-- Added the repository mission, map, Codex instructions, and ignore rules.
-- Documented architecture, development workflow, and the working-method ADR.
-- Added and passed the automated context-resume structure check.
-- Added the pull request template and initial changelog.
-- Completed the manual terminal-restart exercise successfully.
-- Preserved the complete Phase 0–Project 7 programme in the learning roadmap.
-- The learner configured their repository-local Git author metadata.
+- Created this separate sibling repository from the reusable Phase 0 starter.
+- Preserved the complete learning roadmap and durable working method.
+- Defined Project 3's purpose, usefulness, intended usage, requirements,
+  architecture, non-goals, and safety boundaries.
+- Selected the Python service and local-first delivery stack in ADR-002.
+- Split implementation into seven ordered, bounded issues.
+- Designated Issue 001 as the first implementation outcome.
 
 ## Decisions
 
 - [ADR-001](decisions/ADR-001-project-working-method.md): repository files and
   Git history are the durable source of project context.
-- [Learning roadmap](learning-roadmap.md): Project 1 is the local Python Cloud
-  Configuration Validator; later projects progressively add IaC, CI/CD,
-  operations analysis, Kubernetes, platform architecture, and a capstone.
+- [ADR-002](decisions/ADR-002-service-and-delivery-stack.md): use FastAPI,
+  Uvicorn, pytest, Ruff, Docker, GitHub Actions, and Trivy with no default
+  publishing or deployment.
+- The root README is the primary user entry point and must contain verified
+  step-by-step usage as functionality becomes available.
 
 ## Resume here
 
-Begin Project 1 planning; do not write implementation code yet.
+Begin [Issue 001](issues/001-scaffold-and-health-endpoint.md) on a focused
+feature branch:
 
-1. Inspect the repository and verify the local Git author metadata; it is
-   currently configured. Do not expose or change it without a request.
-2. Decide whether Project 1 will use this repository or a separate sibling
-   repository copied from this reusable starter. Recommend a separate repository
-   so the Phase 0 starter remains reusable, but let the learner decide.
-3. Turn the Cloud Configuration Validator scope in `learning-roadmap.md` into
-   explicit requirements, non-goals, and acceptance criteria.
-4. Agree on the first bounded issue and its verification before implementation.
+1. Confirm the exact Python version and dependency pinning approach.
+2. Agree on Issue 001's acceptance criteria before installing dependencies.
+3. Create only the Python scaffold and `GET /health` with its tests.
+4. Do not add the other endpoints, custom logging, Docker, or CI/CD yet.
 
 ## Open questions
 
-- Will Project 1 use this repository or a separate sibling repository?
-- Will a remote repository be added in a later, explicit exercise?
+- Which locally available installation method should provide Python 3.11 or
+  newer for Issue 001?
+- Will a remote repository be added later for an actual GitHub Actions run?
+- Will the optional final image be exported locally or published to a registry?
+
+The last two questions are intentionally deferred and do not block local
+implementation.
 
 ## Session hand-off checklist
 
 - [x] Current state is accurate.
 - [x] The next action is concrete and small.
-- [x] Relevant tests have been run.
-- [x] `git status` has been inspected.
-- [x] No secret or credential has been added.
+- [x] Planning diff has been reviewed and committed.
+- [x] Project-specific context verification has passed.
+- [x] No secret, credential, remote, or external artifact was added.

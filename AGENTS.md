@@ -33,6 +33,10 @@ files and Git history are the durable source of context.
 - Update `docs/project-journal.md` when the current state or next step changes.
 - Add an ADR for a durable decision with meaningful trade-offs.
 - Update `CHANGELOG.md` for notable user-visible changes.
+- Keep the root `README.md` as the primary user entry point. It must explain
+  what the project is, what it does, why it is useful, prerequisites, exact
+  step-by-step local usage, inputs and outputs, safety boundaries, and
+  non-goals. Update it whenever behaviour or the verified workflow changes.
 
 ## Safety boundaries
 
@@ -43,10 +47,14 @@ files and Git history are the durable source of context.
   explicitly requested and authentication has been verified.
 - Prefer read-only checks and local validation.
 - Pause before destructive or difficult-to-reverse operations.
+- Do not publish a container image, configure registry credentials, or deploy
+  the service without explicit approval of the destination and version.
+- Never return arbitrary environment variables from `/config-summary`; expose
+  only the fields explicitly allowed by `docs/requirements.md`.
 
 ## Verification
 
-For the Phase 0 starter, run:
+Until application tooling is added, run:
 
 ```sh
 ./scripts/test-context-resume.sh
@@ -54,5 +62,5 @@ git status --short --branch
 git log --oneline --decorate -5
 ```
 
-When future projects add tools, record their exact format, lint, test, and
-security commands in `docs/development.md`.
+As application tools are added, record their exact format, lint, test, build,
+and security commands in `docs/development.md` and keep them verified.

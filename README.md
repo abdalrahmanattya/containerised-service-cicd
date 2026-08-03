@@ -1,120 +1,147 @@
-# AI-Assisted Cloud Engineering Starter
+# Containerised Service with CI/CD
 
-This repository is the reusable Phase 0 starting point for learning how to lead
-an AI-assisted cloud engineering workflow. It is deliberately small: the goal
-is to practise context, review, Git, documentation, and safe collaboration
-before adding cloud resources.
+This repository is Project 3 of the AI-assisted cloud engineering learning
+roadmap. It will contain a small Python HTTP service and the automated delivery
+checks around it. The application is deliberately simple so the project can
+focus on how code becomes a tested, secure, versioned container image.
 
-## Phase 0 outcomes
+The project is currently **planned but not implemented**. Commands shown under
+**Planned usage** describe the intended finished workflow and will be replaced
+with verified commands as each issue is completed.
 
-By completing this phase, you will be able to:
+## What the service will do
 
-- explain the difference between Git, a local repository, and GitHub;
-- inspect changes before accepting or committing them;
-- make small commits with a clear purpose;
-- give Codex durable project instructions in `AGENTS.md`;
-- record decisions and a reliable resume point in project documentation; and
-- restart the terminal without losing the project's working context.
+The service will expose three JSON endpoints:
 
-No cloud account, GitHub account, credentials, or paid service is required.
+| Endpoint | Purpose |
+| --- | --- |
+| `GET /health` | Confirm that the process is running and able to respond |
+| `GET /version` | Identify the application version currently running |
+| `GET /config-summary` | Show an allow-listed, non-sensitive configuration summary |
 
-## Programme roadmap
+It will read configuration from environment variables, reject invalid
+configuration with a useful error, and emit structured JSON logs. Automated
+tests will cover endpoint responses, configuration behaviour, and error paths.
+The same application will run locally and inside a Docker container.
 
-The complete learning path is stored in `docs/learning-roadmap.md`. It defines
-Phase 0, Projects 1–7, the workflow used for every task, increasing Codex
-autonomy, safety rules, and the assessment after each project. This repository
-therefore remains sufficient context when work moves primarily to Terminal.
+## Why this is useful
+
+These are common production-service patterns:
+
+- Health endpoints let monitoring and container platforms determine whether a
+  process is responding.
+- Version endpoints help operators identify the deployed release.
+- Environment variables let one immutable image run with different settings.
+- An allow-listed configuration summary supports diagnosis without exposing
+  secrets or dumping the process environment.
+- Structured logs can be searched and analysed by log-processing systems.
+- Containers provide a consistent application and dependency boundary.
+- CI/CD checks detect defects, packaging errors, and known image vulnerabilities
+  before an artifact is released.
+
+The larger learning outcome is understanding this delivery path:
+
+```text
+Python source
+    -> formatting and linting
+    -> automated tests
+    -> container image build
+    -> container security scan
+    -> explicitly exported or published versioned artifact
+```
+
+This project bridges the Terraform module in Project 2 and the Kubernetes
+deployment work planned for Project 5.
+
+## Planned behaviour
+
+Example successful responses are intentionally small and predictable:
+
+```json
+{"status":"healthy"}
+```
+
+```json
+{"version":"0.1.0"}
+```
+
+```json
+{
+  "environment": "development",
+  "log_level": "INFO",
+  "service_name": "containerised-service"
+}
+```
+
+The exact contract, defaults, and failure behaviour are defined in
+[`docs/requirements.md`](docs/requirements.md).
+
+## Planned usage
+
+When implementation is complete, another engineer will be able to:
+
+1. Create an isolated Python environment and install the declared dependencies.
+2. Run formatting, linting, and automated tests.
+3. Start the service locally with optional environment-variable overrides.
+4. Call the endpoints with a browser or `curl`.
+5. Build and run the same service as a local Docker container.
+6. Run or inspect the CI/CD stages before producing a versioned artifact.
+
+The eventual endpoint checks will resemble:
+
+```sh
+curl http://localhost:8000/health
+curl http://localhost:8000/version
+curl http://localhost:8000/config-summary
+```
+
+These commands do not work yet because no application code exists. Exact,
+copy-and-paste setup and container commands will be added only after they have
+been implemented and verified.
+
+## Scope and safety boundaries
+
+The initial project does not include a database, authentication, a cloud API,
+Kubernetes, or a production deployment. It must not store or reveal secrets.
+The configuration summary will expose only explicitly approved fields.
+
+Building and running a container will be local. Configuring a Git remote,
+publishing an image, adding credentials, or deploying the service are separate
+actions and require explicit learner approval.
+
+## Technology plan
+
+The accepted technology direction is:
+
+- Python 3.11 or newer;
+- FastAPI served by Uvicorn;
+- pytest for automated tests;
+- Ruff for formatting and linting;
+- Docker for the runtime image;
+- GitHub Actions for the pipeline definition; and
+- Trivy for container vulnerability scanning.
+
+The reasoning and trade-offs are recorded in
+[`ADR-002`](docs/decisions/ADR-002-service-and-delivery-stack.md). No dependency
+or tool has been installed as part of planning.
 
 ## Repository map
 
 | Path | Purpose |
 | --- | --- |
-| `AGENTS.md` | Instructions Codex should follow in this repository |
-| `CHANGELOG.md` | Human-readable record of notable changes |
-| `docs/architecture.md` | System boundaries and architectural overview |
-| `docs/development.md` | Repeatable local workflow and tests |
-| `docs/learning-roadmap.md` | Phase 0 and the seven-project learning path |
-| `docs/project-journal.md` | Current state, recent work, and next step |
-| `docs/decisions/` | Architecture Decision Records (ADRs) |
-| `.github/pull_request_template.md` | Review checklist for future pull requests |
-| `scripts/test-context-resume.sh` | Checks that durable restart context exists |
+| `AGENTS.md` | Safety and collaboration instructions for Codex |
+| `docs/requirements.md` | Agreed behaviour, acceptance criteria, and non-goals |
+| `docs/architecture.md` | Components, data flow, and trust boundaries |
+| `docs/development.md` | Current and eventual local workflows |
+| `docs/issues/` | Ordered, bounded implementation issues |
+| `docs/decisions/` | Durable decisions and their trade-offs |
+| `docs/project-journal.md` | Current state and exact resume point |
+| `docs/learning-roadmap.md` | The complete multi-project learning programme |
+| `CHANGELOG.md` | Notable user-visible changes |
 
-## First local checks
+## Current status and next step
 
-Open Terminal, move to this repository, and run:
-
-```sh
-git --version
-git status
-git log --oneline --decorate --graph
-git remote -v
-```
-
-What these commands tell you:
-
-- `git --version` confirms that Git is available.
-- `git status` shows the current branch and uncommitted changes.
-- `git log` shows the small commits that built this starter.
-- `git remote -v` shows where code would be sent. No output is expected because
-  Phase 0 intentionally has no remote.
-
-### Set your real author identity before sharing
-
-This repository starts with local-only training metadata so commits can be
-created without assuming your identity:
-
-```sh
-git config --local --get user.name
-git config --local --get user.email
-```
-
-Before publishing the repository, replace it with the name and email you want
-recorded in future commits:
-
-```sh
-git config --local user.name "Your Name"
-git config --local user.email "you@example.com"
-```
-
-These settings are commit metadata, not login credentials. Authentication to a
-hosting service is a separate step and is intentionally outside Phase 0.
-
-## The safe AI-assisted Git loop
-
-Use this loop for every small task:
-
-1. **Orient:** Ask Codex to read `AGENTS.md`, the journal, and Git status.
-2. **Plan:** Agree on one small outcome and its acceptance checks.
-3. **Change:** Let Codex edit only the files needed for that outcome.
-4. **Inspect:** Run `git diff` and read the change yourself.
-5. **Verify:** Run the relevant test or documentation check.
-6. **Record:** Update the journal or decision record if context changed.
-7. **Commit:** Stage deliberately and use a focused commit message.
-
-Useful inspection commands:
-
-```sh
-git status --short
-git diff
-git diff --staged
-```
-
-Never commit secrets, private keys, state files, or real credentials. If an AI
-suggests a destructive command or a cloud-changing operation, stop and verify
-the target and consequences first.
-
-## Context restart exercise
-
-The main Phase 0 exercise proves that project context lives in the repository,
-not only in one terminal conversation. Follow the test in
-[`docs/development.md`](docs/development.md#terminal-restart-context-test).
-
-## Definition of done
-
-Phase 0 is complete when:
-
-- the context-resume check passes;
-- `git status` reports a clean working tree;
-- `git log --oneline` shows several focused commits;
-- you can explain what each repository document is for; and
-- you know that no remote or cloud credentials were configured for you.
+Planning is complete when these documents pass the durable-context check and
+the learner reviews the diff. Implementation then begins with
+[`Issue 001`](docs/issues/001-scaffold-and-health-endpoint.md): establish the
+minimal Python package and implement only `GET /health` with tests.
