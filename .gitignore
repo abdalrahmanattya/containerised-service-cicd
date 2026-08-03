@@ -1,0 +1,38 @@
+# macOS
+.DS_Store
+.AppleDouble
+
+# Editors and local tools
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Environment files and credentials
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+credentials.json
+
+# Terraform/OpenTofu local data and state
+.terraform/
+.terraform.lock.hcl.tmp
+*.tfstate
+*.tfstate.*
+crash.log
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+
+# Logs and temporary output
+*.log
+.cache/
+tmp/
+
+# Projectless Codex working/deliverable folders
+work/
+outputs/
