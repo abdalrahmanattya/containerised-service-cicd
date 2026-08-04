@@ -34,7 +34,7 @@ versions follow [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - Documented the matching local commands for the CI workflow and security
   exception process.
 
-## [0.1.0] - 2026-08-01
+## [0.1.0] - 2026-08-04
 
 ### Added
 
@@ -43,3 +43,11 @@ versions follow [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - Architecture, development, journal, and ADR documentation.
 - Automated structural check and manual terminal-restart context exercise.
 - Pull request review template and cloud-focused safety checklist.
+- Project 3's FastAPI service with health, version, and configuration-summary
+  endpoints.
+- Validated configuration, structured JSON request logging, and a digest-pinned
+  non-root Docker image.
+- GitHub Actions quality gates for formatting, linting, tests, image building,
+  and Trivy vulnerability scanning.
+- Remediated the Trivy findings by upgrading FastAPI to `0.141.1` and Starlette
+  to `1.3.1`; the release image scan reports zero HIGH or CRITICAL findings.

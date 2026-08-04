@@ -9,11 +9,12 @@ distinguishes commands that work now from tools planned for later issues.
 - Git
 
 The current machine has Git, Python 3.9.6, `/opt/homebrew/bin/python3.13`, and
-Docker Desktop 29.6.2. Issue 001 targets Python 3.13. Hadolint and Trivy are
-not available; Ruff and pytest are installed into the project virtual
-environment rather than globally.
+Docker Desktop 29.6.2. Issue 001 targets Python 3.13. Hadolint is not
+available; Trivy runs through its pinned Docker image. Ruff and pytest are
+installed into the project virtual environment rather than globally.
 
-No remote repository, registry, cloud account, or credentials are required.
+The GitHub remote is configured for CI execution. No registry, cloud account,
+or credentials are required.
 
 ## Begin a work session
 
@@ -97,8 +98,8 @@ image and vulnerability database. A scan fails for fixed high or critical
 findings; see [`security.md`](security.md) before proposing an exception.
 
 The workflow is local-first: it has no registry login, image push, deployment,
-or secret input. With no Git remote configured, these checks can be reviewed
-locally but GitHub execution cannot be claimed.
+or secret input. The configured GitHub remote allows Actions to execute these
+checks, but no release artifact is published automatically.
 
 ## Review and commit loop
 

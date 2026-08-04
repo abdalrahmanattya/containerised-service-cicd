@@ -19,3 +19,10 @@ first finished local release.
 ## Out of scope
 
 Production deployment and automatic registry publication.
+
+## Result
+
+The CI failure was traced to FastAPI `0.116.1` constraining vulnerable
+Starlette `0.47.3`. FastAPI `0.141.1` and Starlette `1.3.1` were selected as the
+focused repair. The full local gates then passed: 14 tests, image build,
+non-root verification, and a Trivy scan with zero HIGH or CRITICAL findings.
