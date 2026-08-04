@@ -7,7 +7,7 @@ it factual and replace stale status rather than accumulating a transcript.
 
 - **Project:** 3 — Containerised Service with CI/CD
 - **State:** Issue 004 complete; ready for Issue 005
-- **Branch:** `feature/004-structured-logging`
+- **Branch:** `main`
 - **Environment:** Local macOS repository; Git author configured; no remote
 - **Available tools:** Git, Python 3.9.6, and Python 3.13
 - **Missing planned tools:** Docker, Hadolint, and Trivy
