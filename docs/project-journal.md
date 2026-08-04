@@ -7,7 +7,7 @@ it factual and replace stale status rather than accumulating a transcript.
 
 - **Project:** 3 — Containerised Service with CI/CD
 - **State:** Issue 005 complete; ready for Issue 006
-- **Branch:** `feature/005-container-image`
+- **Branch:** `main`
 - **Environment:** Local macOS repository; Git author configured; no remote
 - **Available tools:** Git, Python 3.9.6, Python 3.13, and Docker Desktop 29.6.2
 - **Missing planned tools:** Hadolint and Trivy
