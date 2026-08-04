@@ -33,7 +33,7 @@ git diff --check
 git status --short --branch
 ```
 
-## Issue 001 application commands
+## Issues 001 and 002 application commands
 
 Run these from the repository root:
 
@@ -52,10 +52,12 @@ In another terminal, verify the endpoint with:
 
 ```sh
 curl http://127.0.0.1:8000/health
+curl http://127.0.0.1:8000/version
 ```
 
-Issue 005 will add Docker commands. Issue 006 will document the matching CI and
-vulnerability-scan commands.
+Issue 003 will add configuration commands and tests. Issue 005 will add Docker
+commands. Issue 006 will document the matching CI and vulnerability-scan
+commands.
 
 ## Review and commit loop
 

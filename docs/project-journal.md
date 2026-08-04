@@ -6,8 +6,8 @@ it factual and replace stale status rather than accumulating a transcript.
 ## Current status
 
 - **Project:** 3 — Containerised Service with CI/CD
-- **State:** Issue 001 complete; ready for Issue 002
-- **Branch:** `main`
+- **State:** Issue 002 complete; ready for Issue 003
+- **Branch:** `feature/002-version-endpoint`
 - **Environment:** Local macOS repository; Git author configured; no remote
 - **Available tools:** Git, Python 3.9.6, and Python 3.13
 - **Missing planned tools:** Docker, Hadolint, and Trivy
@@ -27,6 +27,8 @@ it factual and replace stale status rather than accumulating a transcript.
   tested `GET /health` endpoint.
 - Verified formatting, linting, three automated tests, and a localhost smoke
   request returning `{"status":"healthy"}`.
+- Added `GET /version`, backed by the package metadata version, and verified
+  its endpoint and source consistency.
 
 ## Decisions
 
@@ -40,13 +42,13 @@ it factual and replace stale status rather than accumulating a transcript.
 
 ## Resume here
 
-Begin [Issue 002](issues/002-version-endpoint.md) on a branch named
-`feature/002-version-endpoint`:
+Begin [Issue 003](issues/003-configuration-and-summary.md) on a branch named
+`feature/003-configuration-summary`:
 
-1. Use the package version in `pyproject.toml` as the single version source.
-2. Add only `GET /version` and its tests.
+1. Add only validated environment configuration and `/config-summary`.
+2. Test defaults, valid overrides, invalid values, and secret non-disclosure.
 3. Update the verified README and development commands if behaviour changes.
-4. Do not add configuration, custom logging, Docker, or CI/CD yet.
+4. Do not add custom logging, Docker, or CI/CD yet.
 
 ## Open questions
 

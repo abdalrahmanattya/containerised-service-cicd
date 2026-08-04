@@ -15,6 +15,7 @@ versions follow [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - Issue 001's Python package scaffold, FastAPI health endpoint, tests, and
   pinned development dependencies.
 - Durable feature hand-off and code-commenting rules for upcoming issues.
+- Issue 002's package-metadata version source and `GET /version` endpoint.
 
 ### Changed
 
