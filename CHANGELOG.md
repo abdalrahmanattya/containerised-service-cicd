@@ -12,12 +12,15 @@ versions follow [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
   and seven-issue implementation plan.
 - A self-contained project introduction covering purpose, behaviour,
   usefulness, intended usage, and safety boundaries.
+- Issue 001's Python package scaffold, FastAPI health endpoint, tests, and
+  pinned development dependencies.
 
 ### Changed
 
 - Replaced the reusable starter hand-off with Project 3 status and Issue 001 as
   the exact next implementation step.
 - Made the root README the required primary user entry point for future work.
+- Documented the verified Python 3.13 local development workflow.
 
 ## [0.1.0] - 2026-08-01
 

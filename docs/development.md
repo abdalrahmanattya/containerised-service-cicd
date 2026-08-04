@@ -8,11 +8,10 @@ distinguishes commands that work now from tools planned for later issues.
 - A POSIX-compatible shell
 - Git
 
-The current machine has Git and Python 3.9.6. Project application development
-will target Python 3.11 or newer. Docker, Ruff, pytest, `uv`, Hadolint, and Trivy
-were not available when planning was recorded. Do not treat those tools as
-installed and do not install them without reviewing Issue 001 or the relevant
-delivery issue first.
+The current machine has Git, Python 3.9.6, and `/opt/homebrew/bin/python3.13`.
+Issue 001 targets Python 3.13. Docker, Hadolint, and Trivy are not available;
+Ruff and pytest are installed into the project virtual environment rather than
+globally.
 
 No remote repository, registry, cloud account, or credentials are required.
 
@@ -26,7 +25,7 @@ No remote repository, registry, cloud account, or credentials are required.
 
 ## Current verification
 
-Only documentation and planning checks are available before Issue 001:
+Run the durable-context and whitespace checks at every hand-off:
 
 ```sh
 ./scripts/test-context-resume.sh
@@ -34,20 +33,29 @@ git diff --check
 git status --short --branch
 ```
 
-## Planned application commands
+## Issue 001 application commands
 
-Issue 001 will add and verify exact commands for:
+Run these from the repository root:
 
-- creating an isolated Python 3.11-or-newer environment;
-- installing pinned runtime and development dependencies;
-- formatting and linting with Ruff;
-- running tests with pytest; and
-- starting the FastAPI application with Uvicorn.
+```sh
+/opt/homebrew/bin/python3.13 -m venv .venv
+.venv/bin/python -m pip install --upgrade pip
+.venv/bin/python -m pip install -e '.[dev]'
+.venv/bin/ruff format --check src tests
+.venv/bin/ruff check src tests
+.venv/bin/pytest
+.venv/bin/uvicorn containerised_service.main:app --reload
+```
 
-Issue 005 will add verified Docker build, run, inspection, and smoke-test
-commands. Issue 006 will document the matching CI and vulnerability-scan
-commands. Until those issues are complete, README examples are expected
-behaviour rather than executable instructions.
+The server listens on `http://127.0.0.1:8000` until stopped with `Ctrl-C`.
+In another terminal, verify the endpoint with:
+
+```sh
+curl http://127.0.0.1:8000/health
+```
+
+Issue 005 will add Docker commands. Issue 006 will document the matching CI and
+vulnerability-scan commands.
 
 ## Review and commit loop
 
@@ -60,7 +68,9 @@ git commit -m "type: focused outcome"
 ```
 
 Stage explicit paths so unrelated work cannot enter a commit. A feature branch
-should contain one endpoint or one delivery concern, not a mixture.
+should contain one endpoint or one delivery concern, not a mixture. Name it
+`feature/<issue-number>-<short-outcome>`, such as
+`feature/001-service-scaffold-health`, so Git history explains its purpose.
 
 ## Terminal restart context test
 

@@ -30,6 +30,8 @@ files and Git history are the durable source of context.
 - Show and review the diff before committing.
 - Run the smallest relevant verification after each change.
 - Keep commits focused. Do not mix refactoring, features, and documentation.
+- Name feature branches `feature/<issue-number>-<short-outcome>` so the branch
+  communicates the work, for example `feature/001-service-scaffold-health`.
 - Update `docs/project-journal.md` when the current state or next step changes.
 - Add an ADR for a durable decision with meaningful trade-offs.
 - Update `CHANGELOG.md` for notable user-visible changes.

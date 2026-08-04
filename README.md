@@ -5,9 +5,8 @@ roadmap. It will contain a small Python HTTP service and the automated delivery
 checks around it. The application is deliberately simple so the project can
 focus on how code becomes a tested, secure, versioned container image.
 
-The project is currently **planned but not implemented**. Commands shown under
-**Planned usage** describe the intended finished workflow and will be replaced
-with verified commands as each issue is completed.
+Issue 001 is implemented. The version and configuration endpoints, structured
+logging, Docker image, and CI/CD pipeline remain planned for later issues.
 
 ## What the service will do
 
@@ -76,28 +75,33 @@ Example successful responses are intentionally small and predictable:
 The exact contract, defaults, and failure behaviour are defined in
 [`docs/requirements.md`](docs/requirements.md).
 
-## Planned usage
+## Local usage for Issue 001
 
-When implementation is complete, another engineer will be able to:
+Use Python 3.13 and run these commands from the repository root:
 
-1. Create an isolated Python environment and install the declared dependencies.
-2. Run formatting, linting, and automated tests.
-3. Start the service locally with optional environment-variable overrides.
-4. Call the endpoints with a browser or `curl`.
-5. Build and run the same service as a local Docker container.
-6. Run or inspect the CI/CD stages before producing a versioned artifact.
+```sh
+/opt/homebrew/bin/python3.13 -m venv .venv
+.venv/bin/python -m pip install --upgrade pip
+.venv/bin/python -m pip install -e '.[dev]'
+.venv/bin/ruff format --check src tests
+.venv/bin/ruff check src tests
+.venv/bin/pytest
+```
 
-The eventual endpoint checks will resemble:
+Start the local development server with:
+
+```sh
+.venv/bin/uvicorn containerised_service.main:app --reload
+```
+
+Then check the implemented endpoint:
 
 ```sh
 curl http://localhost:8000/health
-curl http://localhost:8000/version
-curl http://localhost:8000/config-summary
 ```
 
-These commands do not work yet because no application code exists. Exact,
-copy-and-paste setup and container commands will be added only after they have
-been implemented and verified.
+It returns `{"status":"healthy"}`. `/version` and `/config-summary` are not
+implemented yet and must not be added to this issue.
 
 ## Scope and safety boundaries
 
@@ -113,7 +117,8 @@ actions and require explicit learner approval.
 
 The accepted technology direction is:
 
-- Python 3.11 or newer;
+- Python 3.13 for the current implementation (the ADR permits Python 3.11 or
+  newer, but this machine provides Python 3.13);
 - FastAPI served by Uvicorn;
 - pytest for automated tests;
 - Ruff for formatting and linting;
@@ -122,8 +127,8 @@ The accepted technology direction is:
 - Trivy for container vulnerability scanning.
 
 The reasoning and trade-offs are recorded in
-[`ADR-002`](docs/decisions/ADR-002-service-and-delivery-stack.md). No dependency
-or tool has been installed as part of planning.
+[`ADR-002`](docs/decisions/ADR-002-service-and-delivery-stack.md). Issue 001
+pins its dependencies in `pyproject.toml`.
 
 ## Repository map
 
@@ -135,13 +140,16 @@ or tool has been installed as part of planning.
 | `docs/development.md` | Current and eventual local workflows |
 | `docs/issues/` | Ordered, bounded implementation issues |
 | `docs/decisions/` | Durable decisions and their trade-offs |
+| `src/containerised_service/` | Python application package |
+| `tests/` | Automated tests |
+| `pyproject.toml` | Package metadata, dependency pins, and tool configuration |
 | `docs/project-journal.md` | Current state and exact resume point |
 | `docs/learning-roadmap.md` | The complete multi-project learning programme |
 | `CHANGELOG.md` | Notable user-visible changes |
 
 ## Current status and next step
 
-Planning is complete when these documents pass the durable-context check and
-the learner reviews the diff. Implementation then begins with
-[`Issue 001`](docs/issues/001-scaffold-and-health-endpoint.md): establish the
-minimal Python package and implement only `GET /health` with tests.
+Issue 001 is complete when the documented environment, format, lint, test, and
+local-run commands have passed and the learner has reviewed the diff. The next
+task is [`Issue 002`](docs/issues/002-version-endpoint.md): add the single
+version source and `GET /version`.

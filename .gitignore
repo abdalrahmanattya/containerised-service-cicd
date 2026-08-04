@@ -7,6 +7,11 @@
 .vscode/
 *.swp
 *.swo
+.venv/
+__pycache__/
+.pytest_cache/
+.ruff_cache/
+*.egg-info/
 
 # Environment files and credentials
 .env
