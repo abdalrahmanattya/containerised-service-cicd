@@ -149,6 +149,18 @@ curl http://127.0.0.1:8000/config-summary
 The image runs as the non-root `app` user. Stop the foreground container with
 `Ctrl-C`, or use `docker stop containerised-service` from another terminal.
 
+## CI quality and security gates for Issue 006
+
+The workflow in [`.github/workflows/ci.yml`](.github/workflows/ci.yml) runs on
+pull requests and pushes to `main`. It installs the package and development
+dependencies, checks Ruff formatting and lint, runs pytest, builds the Docker
+image, verifies its non-root runtime, and scans the image with Trivy.
+
+The scan fails on fixed `HIGH` or `CRITICAL` vulnerabilities and ignores only
+unfixed findings. The exception process and required review details are in
+[`docs/security.md`](docs/security.md). The workflow does not publish, deploy,
+or require secrets.
+
 ## Scope and safety boundaries
 
 The initial project does not include a database, authentication, a cloud API,
@@ -195,7 +207,7 @@ use the dependency pins and package version in `pyproject.toml`.
 
 ## Current status and next step
 
-Issues 001–005 are complete when the documented environment, format, lint, test,
-container build, and local-run commands have passed and the learner has reviewed
-the diff. The next task is [`Issue 006`](docs/issues/006-ci-quality-gates.md):
-add CI quality and security gates.
+Issues 001–006 are complete when the documented environment, format, lint, test,
+container build, local-run, and workflow inspection commands have passed and the
+learner has reviewed the diff. The next task is [`Issue 007`](docs/issues/007-failure-exercise-and-release.md):
+define the explicitly approved versioned artifact hand-off.

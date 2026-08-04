@@ -22,6 +22,8 @@ versions follow [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
   exclusion tests.
 - Issue 005's digest-pinned, non-root Docker image and local endpoint smoke-test
   workflow.
+- Issue 006's pinned-action CI quality gates, non-root image check, and Trivy
+  vulnerability-scan policy without publishing or deployment.
 
 ### Changed
 
@@ -29,6 +31,8 @@ versions follow [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
   the exact next implementation step.
 - Made the root README the required primary user entry point for future work.
 - Documented the verified Python 3.13 local development workflow.
+- Documented the matching local commands for the CI workflow and security
+  exception process.
 
 ## [0.1.0] - 2026-08-01
 

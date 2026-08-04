@@ -6,11 +6,12 @@ it factual and replace stale status rather than accumulating a transcript.
 ## Current status
 
 - **Project:** 3 — Containerised Service with CI/CD
-- **State:** Issue 005 complete; ready for Issue 006
+- **State:** Issue 006 complete; ready for Issue 007
 - **Branch:** `main`
 - **Environment:** Local macOS repository; Git author configured; no remote
 - **Available tools:** Git, Python 3.9.6, Python 3.13, and Docker Desktop 29.6.2
-- **Missing planned tools:** Hadolint and Trivy
+- **Missing planned tools:** Hadolint; Trivy is available through its pinned
+  Docker image for the CI scan
 - **Safety:** No credentials, registry, cloud resources, deployment, or image
   publication are configured
 
@@ -36,6 +37,12 @@ it factual and replace stale status rather than accumulating a transcript.
   proving request bodies and arbitrary extras are excluded.
 - Added a digest-pinned Python image, non-root runtime user, Docker build
   context exclusions, and verified container endpoint smoke tests.
+- Added pinned-revision GitHub Actions quality gates for formatting, linting,
+  tests, container build, non-root verification, and Trivy scanning. Documented
+  the high/critical threshold and time-bounded vulnerability exception process.
+- The local Trivy run correctly failed on three fixed HIGH Starlette findings
+  inherited from the current FastAPI dependency pin; Issue 007 will diagnose
+  this controlled failure before any dependency repair is proposed.
 
 ## Decisions
 
@@ -49,13 +56,12 @@ it factual and replace stale status rather than accumulating a transcript.
 
 ## Resume here
 
-Begin [Issue 006](issues/006-ci-quality-gates.md) on a branch named
-`feature/006-ci-quality-gates`:
+Begin [Issue 007](issues/007-failure-exercise-and-release.md) on a branch named
+`feature/007-failure-exercise-release`:
 
-1. Define only CI formatting, linting, tests, image build, and scanning gates.
-2. Keep publishing, deployment, and registry credentials out of the workflow.
-3. Update the verified README and development commands if behaviour changes.
-4. Diagnose a deliberately failed gate before repairing it.
+1. Define the versioned artifact hand-off without publishing or deploying it.
+2. Keep registry credentials and external services out of the default workflow.
+3. Diagnose a deliberately failed gate before repairing it.
 
 ## Open questions
 

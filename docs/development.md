@@ -77,8 +77,28 @@ docker run --rm --name containerised-service \
 ```
 
 In another terminal, call the three endpoints with `curl`. Confirm the image
-user with `docker exec <container> id` while it is running. Issue 006 will
-document the matching CI and vulnerability-scan commands.
+user with `docker exec <container> id` while it is running. Issue 006 runs the
+same core checks in GitHub Actions. Locally, inspect the workflow file and run:
+
+```sh
+.venv/bin/ruff format --check src tests
+.venv/bin/ruff check src tests
+.venv/bin/pytest
+docker build --tag containerised-service:ci .
+docker run --rm --entrypoint id containerised-service:ci -u
+docker run --rm --volume /var/run/docker.sock:/var/run/docker.sock \
+  aquasec/trivy:0.58.1 image --exit-code 1 \
+  --severity HIGH,CRITICAL --ignore-unfixed --no-progress \
+  containerised-service:ci
+```
+
+The Trivy command requires Docker network access to download its pinned scanner
+image and vulnerability database. A scan fails for fixed high or critical
+findings; see [`security.md`](security.md) before proposing an exception.
+
+The workflow is local-first: it has no registry login, image push, deployment,
+or secret input. With no Git remote configured, these checks can be reviewed
+locally but GitHub execution cannot be claimed.
 
 ## Review and commit loop
 
