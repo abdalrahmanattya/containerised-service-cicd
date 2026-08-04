@@ -20,6 +20,8 @@ versions follow [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
   endpoint.
 - Issue 004's JSON application and request logging with body and extra-field
   exclusion tests.
+- Issue 005's digest-pinned, non-root Docker image and local endpoint smoke-test
+  workflow.
 
 ### Changed
 

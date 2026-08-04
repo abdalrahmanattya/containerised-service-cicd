@@ -5,8 +5,7 @@ roadmap. It will contain a small Python HTTP service and the automated delivery
 checks around it. The application is deliberately simple so the project can
 focus on how code becomes a tested, secure, versioned container image.
 
-Issues 001–004 are implemented. Docker and CI/CD remain planned for later
-issues.
+Issues 001–005 are implemented. CI/CD remains planned for later issues.
 
 ## What the service will do
 
@@ -120,6 +119,36 @@ The service also writes one JSON object per log line to standard output. A
 request-completion record contains the method, path, status code, and duration;
 request bodies and arbitrary environment variables are excluded.
 
+## Local container usage for Issue 005
+
+Build the image from the repository root:
+
+```sh
+docker build --tag containerised-service:0.1.0 .
+```
+
+Run it with the same configuration contract:
+
+```sh
+docker run --rm --name containerised-service \
+  --publish 8000:8000 \
+  --env SERVICE_NAME=containerised-service \
+  --env APP_ENV=development \
+  --env LOG_LEVEL=INFO \
+  containerised-service:0.1.0
+```
+
+In another terminal, verify all endpoints:
+
+```sh
+curl http://127.0.0.1:8000/health
+curl http://127.0.0.1:8000/version
+curl http://127.0.0.1:8000/config-summary
+```
+
+The image runs as the non-root `app` user. Stop the foreground container with
+`Ctrl-C`, or use `docker stop containerised-service` from another terminal.
+
 ## Scope and safety boundaries
 
 The initial project does not include a database, authentication, a cloud API,
@@ -144,7 +173,7 @@ The accepted technology direction is:
 - Trivy for container vulnerability scanning.
 
 The reasoning and trade-offs are recorded in
-[`ADR-002`](docs/decisions/ADR-002-service-and-delivery-stack.md). Issues 001–004
+[`ADR-002`](docs/decisions/ADR-002-service-and-delivery-stack.md). Issues 001–005
 use the dependency pins and package version in `pyproject.toml`.
 
 ## Repository map
@@ -166,7 +195,7 @@ use the dependency pins and package version in `pyproject.toml`.
 
 ## Current status and next step
 
-Issues 001–004 are complete when the documented environment, format, lint, test,
-and local-run commands have passed and the learner has reviewed the diff. The
-next task is [`Issue 005`](docs/issues/005-container-image.md): build the
-reproducible non-root container image.
+Issues 001–005 are complete when the documented environment, format, lint, test,
+container build, and local-run commands have passed and the learner has reviewed
+the diff. The next task is [`Issue 006`](docs/issues/006-ci-quality-gates.md):
+add CI quality and security gates.

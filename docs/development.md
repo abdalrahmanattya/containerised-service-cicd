@@ -8,10 +8,10 @@ distinguishes commands that work now from tools planned for later issues.
 - A POSIX-compatible shell
 - Git
 
-The current machine has Git, Python 3.9.6, and `/opt/homebrew/bin/python3.13`.
-Issue 001 targets Python 3.13. Docker, Hadolint, and Trivy are not available;
-Ruff and pytest are installed into the project virtual environment rather than
-globally.
+The current machine has Git, Python 3.9.6, `/opt/homebrew/bin/python3.13`, and
+Docker Desktop 29.6.2. Issue 001 targets Python 3.13. Hadolint and Trivy are
+not available; Ruff and pytest are installed into the project virtual
+environment rather than globally.
 
 No remote repository, registry, cloud account, or credentials are required.
 
@@ -33,7 +33,7 @@ git diff --check
 git status --short --branch
 ```
 
-## Issues 001–004 application commands
+## Issues 001–005 application commands
 
 Run these from the repository root:
 
@@ -63,9 +63,22 @@ SERVICE_NAME=payments-api APP_ENV=staging LOG_LEVEL=DEBUG \
   .venv/bin/uvicorn containerised_service.main:app --reload
 ```
 
-The server writes structured JSON logs to standard output. Issue 005 will add
-Docker commands. Issue 006 will document the matching CI and vulnerability-scan
-commands.
+The server writes structured JSON logs to standard output. Run these Docker
+commands from the repository root:
+
+```sh
+docker build --tag containerised-service:0.1.0 .
+docker run --rm --name containerised-service \
+  --publish 8000:8000 \
+  --env SERVICE_NAME=containerised-service \
+  --env APP_ENV=development \
+  --env LOG_LEVEL=INFO \
+  containerised-service:0.1.0
+```
+
+In another terminal, call the three endpoints with `curl`. Confirm the image
+user with `docker exec <container> id` while it is running. Issue 006 will
+document the matching CI and vulnerability-scan commands.
 
 ## Review and commit loop
 

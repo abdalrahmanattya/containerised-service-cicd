@@ -6,11 +6,11 @@ it factual and replace stale status rather than accumulating a transcript.
 ## Current status
 
 - **Project:** 3 — Containerised Service with CI/CD
-- **State:** Issue 004 complete; ready for Issue 005
-- **Branch:** `main`
+- **State:** Issue 005 complete; ready for Issue 006
+- **Branch:** `feature/005-container-image`
 - **Environment:** Local macOS repository; Git author configured; no remote
-- **Available tools:** Git, Python 3.9.6, and Python 3.13
-- **Missing planned tools:** Docker, Hadolint, and Trivy
+- **Available tools:** Git, Python 3.9.6, Python 3.13, and Docker Desktop 29.6.2
+- **Missing planned tools:** Hadolint and Trivy
 - **Safety:** No credentials, registry, cloud resources, deployment, or image
   publication are configured
 
@@ -34,6 +34,8 @@ it factual and replace stale status rather than accumulating a transcript.
   tests.
 - Added JSON application and request logging with required fields and tests
   proving request bodies and arbitrary extras are excluded.
+- Added a digest-pinned Python image, non-root runtime user, Docker build
+  context exclusions, and verified container endpoint smoke tests.
 
 ## Decisions
 
@@ -47,13 +49,13 @@ it factual and replace stale status rather than accumulating a transcript.
 
 ## Resume here
 
-Begin [Issue 005](issues/005-container-image.md) on a branch named
-`feature/005-container-image`:
+Begin [Issue 006](issues/006-ci-quality-gates.md) on a branch named
+`feature/006-ci-quality-gates`:
 
-1. Build only the reproducible, non-root Docker image.
-2. Test local build, runtime user, and all three endpoint smoke checks.
+1. Define only CI formatting, linting, tests, image build, and scanning gates.
+2. Keep publishing, deployment, and registry credentials out of the workflow.
 3. Update the verified README and development commands if behaviour changes.
-4. Do not add CI/CD or registry publication yet.
+4. Diagnose a deliberately failed gate before repairing it.
 
 ## Open questions
 
