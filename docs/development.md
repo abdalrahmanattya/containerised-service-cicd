@@ -72,6 +72,12 @@ should contain one endpoint or one delivery concern, not a mixture. Name it
 `feature/<issue-number>-<short-outcome>`, such as
 `feature/001-service-scaffold-health`, so Git history explains its purpose.
 
+When an issue is complete, the hand-off must state what changed, link the
+important files, list the exact format/lint/test/build/security commands that
+were run, and show the expected or observed result. Functions should carry
+concise explanatory docstrings where their purpose is not obvious; comments
+before non-trivial loops should explain the loop's purpose or invariant.
+
 ## Terminal restart context test
 
 1. Ensure the journal contains an accurate **Resume here** action.

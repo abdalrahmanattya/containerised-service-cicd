@@ -35,6 +35,11 @@ files and Git history are the durable source of context.
 - Update `docs/project-journal.md` when the current state or next step changes.
 - Add an ADR for a durable decision with meaningful trade-offs.
 - Update `CHANGELOG.md` for notable user-visible changes.
+- At the end of every completed feature, explain what was accomplished and give
+  the exact commands needed to test it, including the expected result.
+- Add concise docstrings or comments to functions when their purpose or a
+  non-obvious decision needs explanation. Add a comment before a non-trivial
+  loop to explain its purpose or invariant; do not narrate obvious syntax.
 - Keep the root `README.md` as the primary user entry point. It must explain
   what the project is, what it does, why it is useful, prerequisites, exact
   step-by-step local usage, inputs and outputs, safety boundaries, and

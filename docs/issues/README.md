@@ -7,6 +7,12 @@ Use the branch naming convention `feature/<issue-number>-<short-outcome>`;
 for example, Issue 002 should use a name such as
 `feature/002-version-endpoint`.
 
+The completion hand-off for every issue must explain what was accomplished and
+how to test it. Include exact commands, expected results, and any intentional
+limitations. New functions should have useful docstrings or comments where
+intent is not self-evident, and non-trivial loops should explain their purpose
+or invariant.
+
 | Issue | Outcome |
 | --- | --- |
 | [001](001-scaffold-and-health-endpoint.md) | Python scaffold and `GET /health` |
