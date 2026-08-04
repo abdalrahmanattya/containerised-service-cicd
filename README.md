@@ -5,8 +5,8 @@ roadmap. It will contain a small Python HTTP service and the automated delivery
 checks around it. The application is deliberately simple so the project can
 focus on how code becomes a tested, secure, versioned container image.
 
-Issues 001–003 are implemented. Structured logging, Docker, and CI/CD remain
-planned for later issues.
+Issues 001–004 are implemented. Docker and CI/CD remain planned for later
+issues.
 
 ## What the service will do
 
@@ -75,7 +75,7 @@ Example successful responses are intentionally small and predictable:
 The exact contract, defaults, and failure behaviour are defined in
 [`docs/requirements.md`](docs/requirements.md).
 
-## Local usage for Issues 001–003
+## Local usage for Issues 001–004
 
 Use Python 3.13 and run these commands from the repository root:
 
@@ -116,6 +116,10 @@ SERVICE_NAME=payments-api APP_ENV=staging LOG_LEVEL=DEBUG \
 Invalid values stop startup with a clear error. The service never returns the
 complete process environment or secret-like variables.
 
+The service also writes one JSON object per log line to standard output. A
+request-completion record contains the method, path, status code, and duration;
+request bodies and arbitrary environment variables are excluded.
+
 ## Scope and safety boundaries
 
 The initial project does not include a database, authentication, a cloud API,
@@ -140,7 +144,7 @@ The accepted technology direction is:
 - Trivy for container vulnerability scanning.
 
 The reasoning and trade-offs are recorded in
-[`ADR-002`](docs/decisions/ADR-002-service-and-delivery-stack.md). Issues 001–003
+[`ADR-002`](docs/decisions/ADR-002-service-and-delivery-stack.md). Issues 001–004
 use the dependency pins and package version in `pyproject.toml`.
 
 ## Repository map
@@ -162,7 +166,7 @@ use the dependency pins and package version in `pyproject.toml`.
 
 ## Current status and next step
 
-Issues 001–003 are complete when the documented environment, format, lint, test,
+Issues 001–004 are complete when the documented environment, format, lint, test,
 and local-run commands have passed and the learner has reviewed the diff. The
-next task is [`Issue 004`](docs/issues/004-structured-logging.md): add
-structured application and request logs.
+next task is [`Issue 005`](docs/issues/005-container-image.md): build the
+reproducible non-root container image.

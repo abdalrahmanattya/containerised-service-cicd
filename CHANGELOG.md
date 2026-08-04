@@ -18,6 +18,8 @@ versions follow [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - Issue 002's package-metadata version source and `GET /version` endpoint.
 - Issue 003's validated environment settings and safe `/config-summary`
   endpoint.
+- Issue 004's JSON application and request logging with body and extra-field
+  exclusion tests.
 
 ### Changed
 

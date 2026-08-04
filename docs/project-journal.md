@@ -6,8 +6,8 @@ it factual and replace stale status rather than accumulating a transcript.
 ## Current status
 
 - **Project:** 3 — Containerised Service with CI/CD
-- **State:** Issue 003 complete; ready for Issue 004
-- **Branch:** `main`
+- **State:** Issue 004 complete; ready for Issue 005
+- **Branch:** `feature/004-structured-logging`
 - **Environment:** Local macOS repository; Git author configured; no remote
 - **Available tools:** Git, Python 3.9.6, and Python 3.13
 - **Missing planned tools:** Docker, Hadolint, and Trivy
@@ -32,6 +32,8 @@ it factual and replace stale status rather than accumulating a transcript.
 - Added startup-validated environment settings and the allow-listed
   `/config-summary` endpoint, including invalid-startup and non-disclosure
   tests.
+- Added JSON application and request logging with required fields and tests
+  proving request bodies and arbitrary extras are excluded.
 
 ## Decisions
 
@@ -45,13 +47,13 @@ it factual and replace stale status rather than accumulating a transcript.
 
 ## Resume here
 
-Begin [Issue 004](issues/004-structured-logging.md) on a branch named
-`feature/004-structured-logging`:
+Begin [Issue 005](issues/005-container-image.md) on a branch named
+`feature/005-container-image`:
 
-1. Add only structured application and request logs.
-2. Test required JSON fields and absence of request bodies/secrets.
+1. Build only the reproducible, non-root Docker image.
+2. Test local build, runtime user, and all three endpoint smoke checks.
 3. Update the verified README and development commands if behaviour changes.
-4. Do not add Docker or CI/CD yet.
+4. Do not add CI/CD or registry publication yet.
 
 ## Open questions
 
