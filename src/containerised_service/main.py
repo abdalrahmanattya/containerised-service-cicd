@@ -5,6 +5,8 @@ from importlib.metadata import version as distribution_version
 
 from fastapi import FastAPI
 
+from containerised_service.config import Settings, load_settings
+
 
 def application_version() -> str:
     """Return the installed package version used as the service version source."""
@@ -17,6 +19,7 @@ def application_version() -> str:
         ) from exc
 
 
+settings: Settings = load_settings()
 app = FastAPI(title="Containerised Service", version=application_version())
 
 
@@ -32,3 +35,10 @@ def version() -> dict[str, str]:
     """Return the version recorded in the installed package metadata."""
 
     return {"version": application_version()}
+
+
+@app.get("/config-summary")
+def config_summary() -> dict[str, str]:
+    """Return the startup-validated, allow-listed configuration summary."""
+
+    return settings.summary()

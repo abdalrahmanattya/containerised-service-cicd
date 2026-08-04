@@ -6,8 +6,8 @@ it factual and replace stale status rather than accumulating a transcript.
 ## Current status
 
 - **Project:** 3 — Containerised Service with CI/CD
-- **State:** Issue 002 complete; ready for Issue 003
-- **Branch:** `main`
+- **State:** Issue 003 complete; ready for Issue 004
+- **Branch:** `feature/003-configuration-summary`
 - **Environment:** Local macOS repository; Git author configured; no remote
 - **Available tools:** Git, Python 3.9.6, and Python 3.13
 - **Missing planned tools:** Docker, Hadolint, and Trivy
@@ -29,6 +29,9 @@ it factual and replace stale status rather than accumulating a transcript.
   request returning `{"status":"healthy"}`.
 - Added `GET /version`, backed by the package metadata version, and verified
   its endpoint and source consistency.
+- Added startup-validated environment settings and the allow-listed
+  `/config-summary` endpoint, including invalid-startup and non-disclosure
+  tests.
 
 ## Decisions
 
@@ -42,13 +45,13 @@ it factual and replace stale status rather than accumulating a transcript.
 
 ## Resume here
 
-Begin [Issue 003](issues/003-configuration-and-summary.md) on a branch named
-`feature/003-configuration-summary`:
+Begin [Issue 004](issues/004-structured-logging.md) on a branch named
+`feature/004-structured-logging`:
 
-1. Add only validated environment configuration and `/config-summary`.
-2. Test defaults, valid overrides, invalid values, and secret non-disclosure.
+1. Add only structured application and request logs.
+2. Test required JSON fields and absence of request bodies/secrets.
 3. Update the verified README and development commands if behaviour changes.
-4. Do not add custom logging, Docker, or CI/CD yet.
+4. Do not add Docker or CI/CD yet.
 
 ## Open questions
 

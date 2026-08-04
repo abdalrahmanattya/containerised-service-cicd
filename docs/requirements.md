@@ -45,9 +45,14 @@ Values must be normalized only where documented; invalid values must stop
 startup with a clear, non-secret error. Tests must cover defaults, overrides,
 and invalid configuration.
 
-`SERVICE_VERSION` may be supplied by the build/runtime mechanism, but it must
-not create a second independent version source. The implementation issue for
-`GET /version` will settle the exact packaging mechanism before code is added.
+Surrounding whitespace is stripped from all three values. `SERVICE_NAME` must be
+1–100 characters and may contain only letters, numbers, dots, underscores, and
+hyphens. `APP_ENV` and `LOG_LEVEL` retain the case shown in the accepted-values
+table after whitespace is stripped.
+
+`SERVICE_VERSION` is not read by the initial implementation. The package
+metadata version remains the single source used by `GET /version` and future
+release artifacts.
 
 ## Logging requirements
 

@@ -33,7 +33,7 @@ git diff --check
 git status --short --branch
 ```
 
-## Issues 001 and 002 application commands
+## Issues 001–003 application commands
 
 Run these from the repository root:
 
@@ -53,11 +53,18 @@ In another terminal, verify the endpoint with:
 ```sh
 curl http://127.0.0.1:8000/health
 curl http://127.0.0.1:8000/version
+curl http://127.0.0.1:8000/config-summary
 ```
 
-Issue 003 will add configuration commands and tests. Issue 005 will add Docker
-commands. Issue 006 will document the matching CI and vulnerability-scan
-commands.
+For a configuration override smoke test, start a separate process with:
+
+```sh
+SERVICE_NAME=payments-api APP_ENV=staging LOG_LEVEL=DEBUG \
+  .venv/bin/uvicorn containerised_service.main:app --reload
+```
+
+Issue 004 will add structured logging. Issue 005 will add Docker commands.
+Issue 006 will document the matching CI and vulnerability-scan commands.
 
 ## Review and commit loop
 

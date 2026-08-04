@@ -5,8 +5,8 @@ roadmap. It will contain a small Python HTTP service and the automated delivery
 checks around it. The application is deliberately simple so the project can
 focus on how code becomes a tested, secure, versioned container image.
 
-Issues 001 and 002 are implemented. Configuration, structured logging, Docker,
-and CI/CD remain planned for later issues.
+Issues 001–003 are implemented. Structured logging, Docker, and CI/CD remain
+planned for later issues.
 
 ## What the service will do
 
@@ -75,7 +75,7 @@ Example successful responses are intentionally small and predictable:
 The exact contract, defaults, and failure behaviour are defined in
 [`docs/requirements.md`](docs/requirements.md).
 
-## Local usage for Issues 001 and 002
+## Local usage for Issues 001–003
 
 Use Python 3.13 and run these commands from the repository root:
 
@@ -99,11 +99,22 @@ Then check the implemented endpoint:
 ```sh
 curl http://localhost:8000/health
 curl http://localhost:8000/version
+curl http://localhost:8000/config-summary
 ```
 
-The responses are `{"status":"healthy"}` and `{"version":"0.1.0"}`. The
-version comes from the package metadata in `pyproject.toml`; it is not read from
-Git at runtime. `/config-summary` is not implemented yet.
+The responses include `{"status":"healthy"}`, `{"version":"0.1.0"}`, and
+the allow-listed configuration fields. The version comes from the package
+metadata in `pyproject.toml`; it is not read from Git at runtime.
+
+To run with valid overrides, set only the documented variables before startup:
+
+```sh
+SERVICE_NAME=payments-api APP_ENV=staging LOG_LEVEL=DEBUG \
+  .venv/bin/uvicorn containerised_service.main:app --reload
+```
+
+Invalid values stop startup with a clear error. The service never returns the
+complete process environment or secret-like variables.
 
 ## Scope and safety boundaries
 
@@ -129,8 +140,8 @@ The accepted technology direction is:
 - Trivy for container vulnerability scanning.
 
 The reasoning and trade-offs are recorded in
-[`ADR-002`](docs/decisions/ADR-002-service-and-delivery-stack.md). Issues 001
-and 002 use the dependency pins and package version in `pyproject.toml`.
+[`ADR-002`](docs/decisions/ADR-002-service-and-delivery-stack.md). Issues 001–003
+use the dependency pins and package version in `pyproject.toml`.
 
 ## Repository map
 
@@ -151,7 +162,7 @@ and 002 use the dependency pins and package version in `pyproject.toml`.
 
 ## Current status and next step
 
-Issues 001 and 002 are complete when the documented environment, format, lint,
-test, and local-run commands have passed and the learner has reviewed the diff.
-The next task is [`Issue 003`](docs/issues/003-configuration-and-summary.md):
-add validated environment configuration and the safe configuration summary.
+Issues 001–003 are complete when the documented environment, format, lint, test,
+and local-run commands have passed and the learner has reviewed the diff. The
+next task is [`Issue 004`](docs/issues/004-structured-logging.md): add
+structured application and request logs.

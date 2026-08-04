@@ -16,6 +16,8 @@ versions follow [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
   pinned development dependencies.
 - Durable feature hand-off and code-commenting rules for upcoming issues.
 - Issue 002's package-metadata version source and `GET /version` endpoint.
+- Issue 003's validated environment settings and safe `/config-summary`
+  endpoint.
 
 ### Changed
 
