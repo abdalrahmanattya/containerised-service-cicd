@@ -6,9 +6,10 @@ it factual and replace stale status rather than accumulating a transcript.
 ## Current status
 
 - **Project:** 3 — Containerised Service with CI/CD
-- **State:** Issue 006 complete; ready for Issue 007
+- **State:** Issue 007 complete; Project 3 release `v0.1.0` ready
 - **Branch:** `main`
-- **Environment:** Local macOS repository; Git author configured; no remote
+- **Environment:** Local macOS repository; Git author configured; GitHub remote
+  configured as `origin`
 - **Available tools:** Git, Python 3.9.6, Python 3.13, and Docker Desktop 29.6.2
 - **Missing planned tools:** Hadolint; Trivy is available through its pinned
   Docker image for the CI scan
@@ -40,9 +41,11 @@ it factual and replace stale status rather than accumulating a transcript.
 - Added pinned-revision GitHub Actions quality gates for formatting, linting,
   tests, container build, non-root verification, and Trivy scanning. Documented
   the high/critical threshold and time-bounded vulnerability exception process.
-- The local Trivy run correctly failed on three fixed HIGH Starlette findings
-  inherited from the current FastAPI dependency pin; Issue 007 will diagnose
-  this controlled failure before any dependency repair is proposed.
+- Diagnosed the Trivy failure as FastAPI `0.116.1` constraining vulnerable
+  Starlette `0.47.3`; upgraded to FastAPI `0.141.1` and Starlette `1.3.1`.
+- Re-ran the full checks successfully: 14 tests passed, the image ran as a
+  non-root user, and Trivy reported zero HIGH or CRITICAL findings.
+- Documented the completed `v0.1.0` release and prepared its local Git tag.
 
 ## Decisions
 
@@ -56,16 +59,14 @@ it factual and replace stale status rather than accumulating a transcript.
 
 ## Resume here
 
-Begin [Issue 007](issues/007-failure-exercise-and-release.md) on a branch named
-`feature/007-failure-exercise-release`:
+Begin Project 4 from the learning roadmap after reviewing the `v0.1.0` tag:
 
-1. Define the versioned artifact hand-off without publishing or deploying it.
+1. Review the release diff and tag target.
 2. Keep registry credentials and external services out of the default workflow.
-3. Diagnose a deliberately failed gate before repairing it.
+3. Start the next project only after confirming this repository's release state.
 
 ## Open questions
 
-- Will a remote repository be added later for an actual GitHub Actions run?
 - Will the optional final image be exported locally or published to a registry?
 
 The last two questions are intentionally deferred and do not block local

@@ -1,11 +1,12 @@
 # Containerised Service with CI/CD
 
 This repository is Project 3 of the AI-assisted cloud engineering learning
-roadmap. It will contain a small Python HTTP service and the automated delivery
+roadmap. It contains a small Python HTTP service and the automated delivery
 checks around it. The application is deliberately simple so the project can
 focus on how code becomes a tested, secure, versioned container image.
 
-Issues 001–005 are implemented. CI/CD remains planned for later issues.
+Issues 001–007 are implemented. The repository contains the service, its
+container image, CI quality gates, and the documented release workflow.
 
 ## What the service will do
 
@@ -185,8 +186,8 @@ The accepted technology direction is:
 - Trivy for container vulnerability scanning.
 
 The reasoning and trade-offs are recorded in
-[`ADR-002`](docs/decisions/ADR-002-service-and-delivery-stack.md). Issues 001–005
-use the dependency pins and package version in `pyproject.toml`.
+[`ADR-002`](docs/decisions/ADR-002-service-and-delivery-stack.md). Issues 001–007
+use the reviewed dependency pins and package version in `pyproject.toml`.
 
 ## Repository map
 
@@ -207,7 +208,6 @@ use the dependency pins and package version in `pyproject.toml`.
 
 ## Current status and next step
 
-Issues 001–006 are complete when the documented environment, format, lint, test,
-container build, local-run, and workflow inspection commands have passed and the
-learner has reviewed the diff. The next task is [`Issue 007`](docs/issues/007-failure-exercise-and-release.md):
-define the explicitly approved versioned artifact hand-off.
+Project 3 release `v0.1.0` contains the documented service, non-root image,
+quality gates, and vulnerability-scan policy. The next task is Project 4 in the
+learning roadmap.
