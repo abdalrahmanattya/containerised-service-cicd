@@ -162,6 +162,27 @@ unfixed findings. The exception process and required review details are in
 [`docs/security.md`](docs/security.md). The workflow does not publish, deploy,
 or require secrets.
 
+## Versioned GHCR image publication
+
+The separate [`publish-image.yml`](.github/workflows/publish-image.yml)
+workflow publishes only when a semantic-version Git tag such as `v0.1.0` is
+pushed. It uses the short-lived GitHub Actions token and the minimum package
+write permission; no personal registry token is required.
+
+The first planned image is:
+
+```text
+ghcr.io/abdalrahmanattya/containerised-service:0.1.0
+```
+
+The workflow records the immutable image digest in the run summary and enables
+BuildKit provenance and SBOM attestations. Before publishing, confirm the tag,
+repository ownership, package visibility, and workflow permissions. After a
+successful run, record the digest in Project 5 before referencing the image.
+
+Publishing is intentionally not performed from a local terminal. It occurs
+only through the reviewed tag workflow after explicit approval.
+
 ## Scope and safety boundaries
 
 The initial project does not include a database, authentication, a cloud API,

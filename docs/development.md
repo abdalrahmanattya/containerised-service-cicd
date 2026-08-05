@@ -101,6 +101,23 @@ The workflow is local-first: it has no registry login, image push, deployment,
 or secret input. The configured GitHub remote allows Actions to execute these
 checks, but no release artifact is published automatically.
 
+## Versioned image publication
+
+The reviewed release workflow is `.github/workflows/publish-image.yml`. Inspect
+its tag filter and permissions before creating a release tag:
+
+```sh
+sed -n '1,220p' .github/workflows/publish-image.yml
+git diff --check
+```
+
+The workflow publishes `vMAJOR.MINOR.PATCH` tags to
+`ghcr.io/abdalrahmanattya/containerised-service` using `GITHUB_TOKEN`, and
+prints the resulting digest in the GitHub Actions summary. BuildKit provenance
+and SBOM attestations are enabled. Do not push a release tag until the exact
+destination, version, package visibility, and permissions have been reviewed
+and explicitly approved.
+
 ## Review and commit loop
 
 ```sh

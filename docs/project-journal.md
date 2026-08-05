@@ -6,8 +6,8 @@ it factual and replace stale status rather than accumulating a transcript.
 ## Current status
 
 - **Project:** 3 — Containerised Service with CI/CD
-- **State:** Issue 007 complete; Project 3 release `v0.1.0` ready
-- **Branch:** `main`
+- **State:** Issue 007 complete; Issue 002 workflow implemented, publication pending approval
+- **Branch:** `feature/002-publish-versioned-image`
 - **Environment:** Local macOS repository; Git author configured; GitHub remote
   configured as `origin`
 - **Available tools:** Git, Python 3.9.6, Python 3.13, and Docker Desktop 29.6.2
@@ -46,6 +46,8 @@ it factual and replace stale status rather than accumulating a transcript.
 - Re-ran the full checks successfully: 14 tests passed, the image ran as a
   non-root user, and Trivy reported zero HIGH or CRITICAL findings.
 - Documented the completed `v0.1.0` release and prepared its local Git tag.
+- Added a SHA-pinned GHCR publication workflow triggered only by semantic
+  version tags, using `GITHUB_TOKEN`, BuildKit provenance, and an SBOM.
 
 ## Decisions
 
@@ -59,11 +61,14 @@ it factual and replace stale status rather than accumulating a transcript.
 
 ## Resume here
 
-Begin Project 4 from the learning roadmap after reviewing the `v0.1.0` tag:
+Finish Issue 002 after reviewing and approving the exact GHCR publication:
 
-1. Review the release diff and tag target.
-2. Keep registry credentials and external services out of the default workflow.
-3. Start the next project only after confirming this repository's release state.
+1. Review the workflow diff and confirm `v0.1.0` targets
+   `ghcr.io/abdalrahmanattya/containerised-service:0.1.0`.
+2. Confirm the package is intended to be public and that `GITHUB_TOKEN` may
+   receive `packages: write`, `attestations: write`, and `id-token: write`.
+3. Push the existing `v0.1.0` tag through the reviewed workflow only after
+   explicit approval, then record the resulting digest in Project 5.
 
 ## Open questions
 
