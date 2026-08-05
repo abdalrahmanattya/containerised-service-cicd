@@ -48,6 +48,10 @@ it factual and replace stale status rather than accumulating a transcript.
 - Documented the completed `v0.1.0` release and prepared its local Git tag.
 - Added a SHA-pinned GHCR publication workflow triggered only by semantic
   version tags, using `GITHUB_TOKEN`, BuildKit provenance, and an SBOM.
+- The first `v0.1.1` publication attempt reached the build step but failed
+  because the default Docker Buildx driver does not support attestations.
+- Added the SHA-pinned Docker Buildx container builder required by the
+  provenance and SBOM settings; the failed tag is not being reused.
 
 ## Decisions
 
@@ -63,12 +67,12 @@ it factual and replace stale status rather than accumulating a transcript.
 
 Finish Issue 002 after reviewing and approving the exact GHCR publication:
 
-1. Review the workflow diff and confirm `v0.1.0` targets
-   `ghcr.io/abdalrahmanattya/containerised-service:0.1.0`.
+1. Merge the Buildx fix and confirm the application version matches the next
+   release tag.
 2. Confirm the package is intended to be public and that `GITHUB_TOKEN` may
    receive `packages: write`, `attestations: write`, and `id-token: write`.
-3. Push the existing `v0.1.0` tag through the reviewed workflow only after
-   explicit approval, then record the resulting digest in Project 5.
+3. Push a new release tag through the reviewed workflow only after explicit
+   approval, then record the resulting digest in Project 5.
 
 ## Open questions
 
