@@ -27,6 +27,8 @@ versions follow [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - Issue 002's reviewed, semantic-tag GHCR publication workflow with
   short-lived-token authentication, immutable digest reporting, provenance,
   and SBOM generation.
+- Added the Docker Buildx container builder required for provenance and SBOM
+  attestations during GHCR publication.
 
 ### Changed
 
