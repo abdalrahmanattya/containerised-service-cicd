@@ -6,8 +6,8 @@ it factual and replace stale status rather than accumulating a transcript.
 ## Current status
 
 - **Project:** 3 — Containerised Service with CI/CD
-- **State:** Issue 007 complete; Issue 002 workflow implemented, publication pending approval
-- **Branch:** `feature/002-publish-versioned-image`
+- **State:** Issue 002 release `v0.1.2` prepared; publication pending approval
+- **Branch:** `feature/002-release-0.1.2`
 - **Environment:** Local macOS repository; Git author configured; GitHub remote
   configured as `origin`
 - **Available tools:** Git, Python 3.9.6, Python 3.13, and Docker Desktop 29.6.2
@@ -52,6 +52,8 @@ it factual and replace stale status rather than accumulating a transcript.
   because the default Docker Buildx driver does not support attestations.
 - Added the SHA-pinned Docker Buildx container builder required by the
   provenance and SBOM settings; the failed tag is not being reused.
+- Bumped the single package version source and active release documentation to
+  `0.1.2`; the historical `v0.1.0` release remains unchanged.
 
 ## Decisions
 
@@ -67,8 +69,7 @@ it factual and replace stale status rather than accumulating a transcript.
 
 Finish Issue 002 after reviewing and approving the exact GHCR publication:
 
-1. Merge the Buildx fix and confirm the application version matches the next
-   release tag.
+1. Review and merge the `v0.1.2` release change.
 2. Confirm the package is intended to be public and that `GITHUB_TOKEN` may
    receive `packages: write`, `attestations: write`, and `id-token: write`.
 3. Push a new release tag through the reviewed workflow only after explicit

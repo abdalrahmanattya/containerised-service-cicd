@@ -39,6 +39,15 @@ versions follow [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - Documented the matching local commands for the CI workflow and security
   exception process.
 
+## [0.1.2] - 2026-08-05
+
+### Added
+
+- Prepared the application metadata and active usage documentation for the
+  corrected `v0.1.2` release after the failed `v0.1.1` publication attempt.
+- Included the Buildx container-builder fix for GHCR provenance and SBOM
+  attestations.
+
 ## [0.1.0] - 2026-08-04
 
 ### Added

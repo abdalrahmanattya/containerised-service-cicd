@@ -68,13 +68,13 @@ The server writes structured JSON logs to standard output. Run these Docker
 commands from the repository root:
 
 ```sh
-docker build --tag containerised-service:0.1.0 .
+docker build --tag containerised-service:0.1.2 .
 docker run --rm --name containerised-service \
   --publish 8000:8000 \
   --env SERVICE_NAME=containerised-service \
   --env APP_ENV=development \
   --env LOG_LEVEL=INFO \
-  containerised-service:0.1.0
+  containerised-service:0.1.2
 ```
 
 In another terminal, call the three endpoints with `curl`. Confirm the image
