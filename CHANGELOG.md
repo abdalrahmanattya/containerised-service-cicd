@@ -24,6 +24,9 @@ versions follow [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
   workflow.
 - Issue 006's pinned-action CI quality gates, non-root image check, and Trivy
   vulnerability-scan policy without publishing or deployment.
+- Issue 002's reviewed, semantic-tag GHCR publication workflow with
+  short-lived-token authentication, immutable digest reporting, provenance,
+  and SBOM generation.
 
 ### Changed
 
