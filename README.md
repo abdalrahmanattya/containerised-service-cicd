@@ -61,7 +61,7 @@ Example successful responses are intentionally small and predictable:
 ```
 
 ```json
-{"version":"0.1.2"}
+{"version":"0.1.3"}
 ```
 
 ```json
@@ -102,7 +102,7 @@ curl http://localhost:8000/version
 curl http://localhost:8000/config-summary
 ```
 
-The responses include `{"status":"healthy"}`, `{"version":"0.1.2"}`, and
+The responses include `{"status":"healthy"}`, `{"version":"0.1.3"}`, and
 the allow-listed configuration fields. The version comes from the package
 metadata in `pyproject.toml`; it is not read from Git at runtime.
 
@@ -125,7 +125,7 @@ request bodies and arbitrary environment variables are excluded.
 Build the image from the repository root:
 
 ```sh
-docker build --tag containerised-service:0.1.2 .
+docker build --tag containerised-service:0.1.3 .
 ```
 
 Run it with the same configuration contract:
@@ -136,7 +136,7 @@ docker run --rm --name containerised-service \
   --env SERVICE_NAME=containerised-service \
   --env APP_ENV=development \
   --env LOG_LEVEL=INFO \
-  containerised-service:0.1.2
+  containerised-service:0.1.3
 ```
 
 In another terminal, verify all endpoints:
@@ -165,14 +165,14 @@ or require secrets.
 ## Versioned GHCR image publication
 
 The separate [`publish-image.yml`](.github/workflows/publish-image.yml)
-workflow publishes only when a semantic-version Git tag such as `v0.1.2` is
+workflow publishes only when a semantic-version Git tag such as `v0.1.3` is
 pushed. It uses the short-lived GitHub Actions token and the minimum package
 write permission; no personal registry token is required.
 
 The next release image is:
 
 ```text
-ghcr.io/abdalrahmanattya/containerised-service:0.1.2
+ghcr.io/abdalrahmanattya/containerised-service:0.1.3
 ```
 
 The workflow records the immutable image digest in the run summary and enables
@@ -229,6 +229,7 @@ use the reviewed dependency pins and package version in `pyproject.toml`.
 
 ## Current status and next step
 
-The next Project 3 release will be `v0.1.2`; it contains the documented
-service, non-root image, quality gates, and vulnerability-scan policy. The
-next task after publication is Project 4 in the learning roadmap.
+The next Project 3 release will be `v0.1.3`; it contains the documented
+service, non-root image, quality gates, vulnerability-scan policy, and
+linux/amd64 plus linux/arm64 image manifests. Its publication supports the
+arm64 Docker Desktop Kubernetes target used by Project 5.

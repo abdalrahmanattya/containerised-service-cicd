@@ -68,13 +68,13 @@ The server writes structured JSON logs to standard output. Run these Docker
 commands from the repository root:
 
 ```sh
-docker build --tag containerised-service:0.1.2 .
+docker build --tag containerised-service:0.1.3 .
 docker run --rm --name containerised-service \
   --publish 8000:8000 \
   --env SERVICE_NAME=containerised-service \
   --env APP_ENV=development \
   --env LOG_LEVEL=INFO \
-  containerised-service:0.1.2
+  containerised-service:0.1.3
 ```
 
 In another terminal, call the three endpoints with `curl`. Confirm the image
@@ -113,8 +113,10 @@ git diff --check
 
 The workflow publishes `vMAJOR.MINOR.PATCH` tags to
 `ghcr.io/abdalrahmanattya/containerised-service` using `GITHUB_TOKEN`, and
-prints the resulting digest in the GitHub Actions summary. BuildKit provenance
-and SBOM attestations are enabled. Do not push a release tag until the exact
+prints the resulting top-level digest in the GitHub Actions summary. Each
+release builds `linux/amd64` and `linux/arm64` manifests so the image can run
+on the Project 5 Docker Desktop target. BuildKit provenance and SBOM
+attestations are enabled. Do not push a release tag until the exact
 destination, version, package visibility, and permissions have been reviewed
 and explicitly approved.
 

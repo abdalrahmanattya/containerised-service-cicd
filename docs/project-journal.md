@@ -6,15 +6,16 @@ it factual and replace stale status rather than accumulating a transcript.
 ## Current status
 
 - **Project:** 3 — Containerised Service with CI/CD
-- **State:** Issue 002 release `v0.1.2` prepared; publication pending approval
-- **Branch:** `feature/002-release-0.1.2`
+- **State:** Issue 007 follow-up in progress; preparing multi-architecture
+  release `v0.1.3` for Project 5's arm64 local cluster
+- **Branch:** `feature/007-multiarch-release`
 - **Environment:** Local macOS repository; Git author configured; GitHub remote
   configured as `origin`
 - **Available tools:** Git, Python 3.9.6, Python 3.13, and Docker Desktop 29.6.2
 - **Missing planned tools:** Hadolint; Trivy is available through its pinned
   Docker image for the CI scan
-- **Safety:** No credentials, registry, cloud resources, deployment, or image
-  publication are configured
+- **Safety:** No credentials were added. The new image has not been published
+  yet; publication remains limited to the approved semantic tag workflow.
 
 ## Completed
 
@@ -54,6 +55,8 @@ it factual and replace stale status rather than accumulating a transcript.
   provenance and SBOM settings; the failed tag is not being reused.
 - Bumped the single package version source and active release documentation to
   `0.1.2`; the historical `v0.1.0` release remains unchanged.
+- Diagnosed Project 5's local image pull failure: the `v0.1.2` image index has
+  only a linux/amd64 manifest while Docker Desktop Kubernetes is arm64.
 
 ## Decisions
 
@@ -67,13 +70,14 @@ it factual and replace stale status rather than accumulating a transcript.
 
 ## Resume here
 
-Finish Issue 002 after reviewing and approving the exact GHCR publication:
+Finish the multi-architecture `v0.1.3` release after reviewing the exact GHCR
+publication:
 
-1. Review and merge the `v0.1.2` release change.
-2. Confirm the package is intended to be public and that `GITHUB_TOKEN` may
-   receive `packages: write`, `attestations: write`, and `id-token: write`.
-3. Push a new release tag through the reviewed workflow only after explicit
-   approval, then record the resulting digest in Project 5.
+1. Review and merge this workflow and package-version change.
+2. Confirm the package remains public and that `GITHUB_TOKEN` may receive
+   `packages: write`, `attestations: write`, and `id-token: write`.
+3. Push tag `v0.1.3` through the reviewed workflow, then record the resulting
+   multi-architecture digest in Project 5.
 
 ## Open questions
 

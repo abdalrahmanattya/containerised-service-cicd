@@ -29,6 +29,8 @@ versions follow [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
   and SBOM generation.
 - Added the Docker Buildx container builder required for provenance and SBOM
   attestations during GHCR publication.
+- Prepared `v0.1.3` to publish linux/amd64 and linux/arm64 image manifests for
+  the local Docker Desktop Kubernetes target.
 
 ### Changed
 
