@@ -2,12 +2,18 @@
 
 ## Purpose and scope
 
-Project 3 is a small Python HTTP service surrounded by tests, a container build,
-and CI/CD validation. Its runtime behaviour is intentionally narrow; most of
-the learning value is in creating a predictable path from source to a reviewed
-container artifact.
+This project is a small Python HTTP service surrounded by tests, a container
+build, and CI/CD validation. It provides operational endpoints and produces a
+versioned image for the companion GitOps repository.
 
-## Planned system context
+## System context
+
+![Containerised service delivery architecture](diagrams/containerised-service-delivery.svg)
+
+Source for the rendered diagram is
+[`diagrams/containerised-service-delivery.mmd`](diagrams/containerised-service-delivery.mmd).
+The drawing uses explicit boundaries and directional flow so it can be updated
+alongside the workflows.
 
 ```text
 caller
@@ -31,11 +37,13 @@ CI: format/lint -> test -> image build -> vulnerability scan
   v
 local image artifact
   |
-  +--> export or publish only after explicit configuration and approval
+  +--> tag-triggered GHCR publication (release workflow only)
+  |
+  +--> immutable digest consumed by the companion GitOps repository
 ```
 
 There is no database, downstream service, cloud API, or secret store in the
-initial architecture.
+current architecture.
 
 ## Component responsibilities
 
@@ -61,14 +69,14 @@ environment keys.
 ### Logging
 
 Writes structured JSON to standard output so the same logging contract works in
-a terminal, Docker, and a future container platform. Logging must not expose
+a terminal, Docker, and a container platform. Logging must not expose
 the entire environment, request bodies, or secrets.
 
 ### Tests
 
 Exercise the application in process without opening a real network port where
 possible. Unit tests cover configuration; API tests cover status codes and JSON
-contracts; later container smoke tests verify the packaged runtime boundary.
+contracts; the CI workflow also verifies the packaged runtime boundary.
 
 ### Container image
 
@@ -78,8 +86,9 @@ boundary, not a place for environment-specific configuration.
 
 ### CI/CD pipeline
 
-Runs independent quality gates in an understandable order. It validates and
-builds artifacts but does not deploy or publish by default.
+The CI workflow runs quality gates, builds an image, and scans it without
+publishing or deploying. The separate tag-triggered release workflow repeats
+those gates and publishes the versioned image to GHCR.
 
 ## Data and request flow
 
@@ -113,9 +122,9 @@ The service stores no application data between requests.
   diagnosis.
 - **Auditability:** work proceeds through bounded issues and focused commits.
 
-## Evolution constraints
+## Current boundaries and future changes
 
 Do not add a database, authentication, cloud integration, Kubernetes, registry
 publishing, or deployment merely to make the example appear production-like.
-Each would require separate requirements, threat and cost review, and learner
-approval.
+Each would require separate requirements, threat and cost review, and
+maintainer approval.

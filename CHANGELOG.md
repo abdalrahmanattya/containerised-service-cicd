@@ -1,6 +1,6 @@
 # Changelog
 
-All notable changes to this learning repository will be documented here. The
+All notable changes to this repository are documented here. The
 format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 versions follow [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
@@ -42,7 +42,7 @@ versions follow [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 - Replaced the reusable starter hand-off with Project 3 status and Issue 001 as
   the exact next implementation step.
-- Made the root README the required primary user entry point for future work.
+- Made the root README the primary user entry point.
 - Documented the verified Python 3.13 local development workflow.
 - Documented the matching local commands for the CI workflow and security
   exception process.
@@ -61,7 +61,7 @@ versions follow [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 ### Added
 
 - Reusable Phase 0 repository structure and beginner quick start.
-- Durable Codex instructions in `AGENTS.md`.
+- Durable repository working notes and verification tooling.
 - Architecture, development, journal, and ADR documentation.
 - Automated structural check and manual terminal-restart context exercise.
 - Pull request review template and cloud-focused safety checklist.

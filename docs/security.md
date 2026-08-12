@@ -15,7 +15,7 @@ There is no blanket ignore list. A proposed exception must be recorded in a
 reviewed issue or ADR with the CVE, affected component, reason, compensating
 control, owner, and expiry date. The exception must be narrowly scoped and
 removed when the dependency or base image is updated. Changing the workflow's
-threshold or adding an ignore requires the learner's review.
+threshold or adding an ignore requires maintainer review.
 
 The pull-request validation workflow has no registry credentials, publish step,
 or deployment step. The release workflow uses only the short-lived

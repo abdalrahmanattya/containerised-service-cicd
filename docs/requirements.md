@@ -3,7 +3,7 @@
 ## Outcome
 
 Build a small internal HTTP service and a reviewable delivery pipeline. The
-service must be understandable enough that the learner can explain every
+service must be understandable enough that a maintainer can explain every
 endpoint and every pipeline stage, while still demonstrating realistic
 configuration, logging, testing, container, and security practices.
 
@@ -51,7 +51,7 @@ hyphens. `APP_ENV` and `LOG_LEVEL` retain the case shown in the accepted-values
 table after whitespace is stripped.
 
 `SERVICE_VERSION` is not read by the initial implementation. The package
-metadata version remains the single source used by `GET /version` and future
+metadata version remains the single source used by `GET /version` and later
 release artifacts.
 
 ## Logging requirements
@@ -82,7 +82,7 @@ The pipeline must have understandable stages for:
 3. container image build; and
 4. container vulnerability scanning.
 
-Stages must fail when their corresponding check fails. The learner will
+Stages must fail when their corresponding check fails. Maintainers will
 diagnose one deliberately failed CI run from evidence before making a repair.
 Publishing or exporting a versioned image is optional and occurs only after an
 explicit destination and authentication decision.

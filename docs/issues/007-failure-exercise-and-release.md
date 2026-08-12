@@ -2,13 +2,13 @@
 
 ## Outcome
 
-Complete the roadmap's evidence-led failure exercise, then document and tag the
+Complete an evidence-led failure exercise, then document and tag the
 first finished local release.
 
 ## Acceptance criteria
 
 - One controlled CI failure is introduced on a focused branch.
-- The learner identifies the failed stage and cites its evidence before any
+- The maintainer identifies the failed stage and cites its evidence before any
   repair is proposed.
 - The repair is limited to the diagnosed cause and all gates pass afterward.
 - The changelog and README describe the completed `v0.1.0` behaviour.
