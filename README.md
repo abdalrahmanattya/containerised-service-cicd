@@ -5,8 +5,8 @@ checks around it. The service is deliberately narrow: it demonstrates how
 source code becomes a tested, secure, versioned container image that can be
 consumed by a separate GitOps deployment repository.
 
-Issues 001–007 are implemented. The repository contains the service, its
-container image, CI quality gates, and the documented release workflow.
+The repository contains the service, its container image, CI quality gates, and
+the documented release workflow.
 
 ## What the service does
 
@@ -46,7 +46,7 @@ Python source
     -> automated tests
     -> container image build
     -> container security scan
-    -> explicitly exported or published versioned artifact
+    -> tag-triggered publication of a versioned artifact
 ```
 
 This project is the application-delivery half of the companion
@@ -185,7 +185,7 @@ workflow publishes only when a semantic-version Git tag such as `v0.1.3` is
 pushed. It uses the short-lived GitHub Actions token and the minimum package
 write permission; no personal registry token is required.
 
-The current release image is:
+The verified v0.1.3 release image is:
 
 ```text
 ghcr.io/abdalrahmanattya/containerised-service:0.1.3
@@ -230,9 +230,7 @@ The current technology stack is:
 - GitHub Actions for the pipeline definition; and
 - Trivy for container vulnerability scanning.
 
-The reasoning and trade-offs are recorded in
-[`ADR-002`](docs/decisions/ADR-002-service-and-delivery-stack.md). Issues 001–007
-use the reviewed dependency pins and package version in `pyproject.toml`.
+The dependency pins and package version are recorded in `pyproject.toml`.
 
 ## Repository map
 
@@ -251,7 +249,7 @@ use the reviewed dependency pins and package version in `pyproject.toml`.
 
 ## Current status and next step
 
-Project 3 release `v0.1.3` contains the documented service, non-root image,
-quality gates, vulnerability-scan policy, and linux/amd64 plus linux/arm64
-image manifests. Its published digest is recorded above and is consumed by
-Project 5's Docker Desktop Kubernetes target.
+The verified `v0.1.3` release contains the documented service, non-root image,
+quality gates, vulnerability-scan policy, and `linux/amd64` plus `linux/arm64`
+image manifests. Its published digest is recorded above and is consumed by the
+companion GitOps repository's Kubernetes desired state.
