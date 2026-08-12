@@ -50,9 +50,8 @@ else
 fi
 
 require_file 'repository purpose is documented' 'README.md'
-require_file 'Codex instructions exist' 'AGENTS.md'
-require_file 'current hand-off exists' 'docs/project-journal.md'
 require_file 'complete learning roadmap exists' 'docs/learning-roadmap.md'
+require_file 'license exists' 'LICENSE'
 require_file 'Project 3 requirements exist' 'docs/requirements.md'
 require_file 'working-method decision exists' \
   'docs/decisions/ADR-001-project-working-method.md'
@@ -62,16 +61,10 @@ require_file 'first implementation issue exists' \
   'docs/issues/001-scaffold-and-health-endpoint.md'
 require_file 'restart exercise is documented' 'docs/development.md'
 
-require_text 'Codex has fresh-session orientation instructions' 'AGENTS.md' \
-  'Start every new session by orienting'
-require_text 'journal contains a precise resume section' \
-  'docs/project-journal.md' '## Resume here'
 require_text 'README identifies Project 3' 'README.md' \
   '# Containerised Service with CI/CD'
 require_text 'requirements define the health endpoint' 'docs/requirements.md' \
   '### `GET /health`'
-require_text 'journal points to the first implementation issue' \
-  'docs/project-journal.md' 'Issue 001'
 require_text 'roadmap includes the capstone destination' \
   'docs/learning-roadmap.md' \
   '## Project 7 — Capstone: Self-Service Cloud Environment Platform'
@@ -83,4 +76,4 @@ require_text 'manual terminal restart test is available' 'docs/development.md' \
   '## Terminal restart context test'
 
 printf '1..%s\n' "$checks_run"
-printf 'Durable context is ready. Follow the journal Resume here section next.\n'
+printf 'Public repository context is ready. Local orchestration notes remain outside Git.\n'
