@@ -6,6 +6,14 @@ versions follow [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+## [0.1.3] - 2026-08-06
+
+### Added
+
+- Published the reviewed linux/amd64 and linux/arm64 GHCR image manifests.
+- Recorded the immutable multi-architecture image digest used by Project 5.
+- Added BuildKit provenance and SBOM attestations to the release workflow.
+
 ### Added
 
 - Project 3 requirements, architecture, service and delivery stack decision,
@@ -23,14 +31,12 @@ versions follow [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - Issue 005's digest-pinned, non-root Docker image and local endpoint smoke-test
   workflow.
 - Issue 006's pinned-action CI quality gates, non-root image check, and Trivy
-  vulnerability-scan policy without publishing or deployment.
+  vulnerability-scan policy.
 - Issue 002's reviewed, semantic-tag GHCR publication workflow with
   short-lived-token authentication, immutable digest reporting, provenance,
   and SBOM generation.
 - Added the Docker Buildx container builder required for provenance and SBOM
   attestations during GHCR publication.
-- Prepared `v0.1.3` to publish linux/amd64 and linux/arm64 image manifests for
-  the local Docker Desktop Kubernetes target.
 
 ### Changed
 

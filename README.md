@@ -49,8 +49,10 @@ Python source
     -> explicitly exported or published versioned artifact
 ```
 
-This project bridges the Terraform module in Project 2 and the Kubernetes
-deployment work planned for Project 5.
+This project is the application-delivery half of the companion
+[Secure Container Delivery & GitOps case study](https://github.com/abdalrahmanattya/containerised-service-gitops).
+It produces the immutable image consumed by the separate Kubernetes desired-
+state repository.
 
 ## Planned behaviour
 
@@ -159,8 +161,9 @@ image, verifies its non-root runtime, and scans the image with Trivy.
 
 The scan fails on fixed `HIGH` or `CRITICAL` vulnerabilities and ignores only
 unfixed findings. The exception process and required review details are in
-[`docs/security.md`](docs/security.md). The workflow does not publish, deploy,
-or require secrets.
+[`docs/security.md`](docs/security.md). This validation workflow does not
+publish or deploy; the separate release workflow repeats the quality and
+security gates before publication.
 
 ## Versioned GHCR image publication
 
@@ -169,16 +172,25 @@ workflow publishes only when a semantic-version Git tag such as `v0.1.3` is
 pushed. It uses the short-lived GitHub Actions token and the minimum package
 write permission; no personal registry token is required.
 
-The next release image is:
+The current release image is:
 
 ```text
 ghcr.io/abdalrahmanattya/containerised-service:0.1.3
 ```
 
+The published v0.1.3 multi-architecture image is identified by this immutable
+top-level digest:
+
+```text
+sha256:6a9075b289a699692f60f6936b84590c8ad487071145a909ae7c3de98025f3b2
+```
+
 The workflow records the immutable image digest in the run summary and enables
-BuildKit provenance and SBOM attestations. Before publishing, confirm the tag,
-repository ownership, package visibility, and workflow permissions. After a
-successful run, record the digest in Project 5 before referencing the image.
+BuildKit provenance and SBOM attestations. The companion
+[GitOps repository](https://github.com/abdalrahmanattya/containerised-service-gitops)
+references this digest rather than a moving tag. Before publishing a future
+release, confirm the tag, repository ownership, package visibility, and
+workflow permissions.
 
 Publishing is intentionally not performed from a local terminal. It occurs
 only through the reviewed tag workflow after explicit approval.
@@ -214,7 +226,6 @@ use the reviewed dependency pins and package version in `pyproject.toml`.
 
 | Path | Purpose |
 | --- | --- |
-| `AGENTS.md` | Safety and collaboration instructions for Codex |
 | `docs/requirements.md` | Agreed behaviour, acceptance criteria, and non-goals |
 | `docs/architecture.md` | Components, data flow, and trust boundaries |
 | `docs/development.md` | Current and eventual local workflows |
@@ -223,13 +234,13 @@ use the reviewed dependency pins and package version in `pyproject.toml`.
 | `src/containerised_service/` | Python application package |
 | `tests/` | Automated tests |
 | `pyproject.toml` | Package metadata, dependency pins, and tool configuration |
-| `docs/project-journal.md` | Current state and exact resume point |
 | `docs/learning-roadmap.md` | The complete multi-project learning programme |
 | `CHANGELOG.md` | Notable user-visible changes |
+| `LICENSE` | MIT license for the repository |
 
 ## Current status and next step
 
-The next Project 3 release will be `v0.1.3`; it contains the documented
-service, non-root image, quality gates, vulnerability-scan policy, and
-linux/amd64 plus linux/arm64 image manifests. Its publication supports the
-arm64 Docker Desktop Kubernetes target used by Project 5.
+Project 3 release `v0.1.3` contains the documented service, non-root image,
+quality gates, vulnerability-scan policy, and linux/amd64 plus linux/arm64
+image manifests. Its published digest is recorded above and is consumed by
+Project 5's Docker Desktop Kubernetes target.
