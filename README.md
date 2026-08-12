@@ -1,16 +1,16 @@
 # Containerised Service with CI/CD
 
-This repository is Project 3 of the AI-assisted cloud engineering learning
-roadmap. It contains a small Python HTTP service and the automated delivery
-checks around it. The application is deliberately simple so the project can
-focus on how code becomes a tested, secure, versioned container image.
+This repository contains a small Python HTTP service and the automated delivery
+checks around it. The service is deliberately narrow: it demonstrates how
+source code becomes a tested, secure, versioned container image that can be
+consumed by a separate GitOps deployment repository.
 
 Issues 001–007 are implemented. The repository contains the service, its
 container image, CI quality gates, and the documented release workflow.
 
-## What the service will do
+## What the service does
 
-The service will expose three JSON endpoints:
+The service exposes three JSON endpoints:
 
 | Endpoint | Purpose |
 | --- | --- |
@@ -18,10 +18,10 @@ The service will expose three JSON endpoints:
 | `GET /version` | Identify the application version currently running |
 | `GET /config-summary` | Show an allow-listed, non-sensitive configuration summary |
 
-It will read configuration from environment variables, reject invalid
-configuration with a useful error, and emit structured JSON logs. Automated
-tests will cover endpoint responses, configuration behaviour, and error paths.
-The same application will run locally and inside a Docker container.
+It reads configuration from environment variables, rejects invalid
+configuration with a useful error, and emits structured JSON logs. Automated
+tests cover endpoint responses, configuration behaviour, and error paths. The
+same application runs locally and inside a Docker container.
 
 ## Why this is useful
 
@@ -38,7 +38,7 @@ These are common production-service patterns:
 - CI/CD checks detect defects, packaging errors, and known image vulnerabilities
   before an artifact is released.
 
-The larger learning outcome is understanding this delivery path:
+The delivery path is:
 
 ```text
 Python source
@@ -54,7 +54,20 @@ This project is the application-delivery half of the companion
 It produces the immutable image consumed by the separate Kubernetes desired-
 state repository.
 
-## Planned behaviour
+## Architecture at a glance
+
+The diagram shows the boundaries between the Python process, its container
+runtime, and the GitHub Actions delivery path. The GitOps repository consumes
+the published digest; it is not changed by this repository's CI workflow.
+
+![Containerised service delivery architecture](docs/diagrams/containerised-service-delivery.svg)
+
+The maintainable diagram source is
+[`docs/diagrams/containerised-service-delivery.mmd`](docs/diagrams/containerised-service-delivery.mmd).
+The runtime has no database, cloud API, or secret store. Configuration enters
+only at startup, and logs leave through standard output.
+
+## API contract
 
 Example successful responses are intentionally small and predictable:
 
@@ -77,12 +90,12 @@ Example successful responses are intentionally small and predictable:
 The exact contract, defaults, and failure behaviour are defined in
 [`docs/requirements.md`](docs/requirements.md).
 
-## Local usage for Issues 001–004
+## Local development
 
 Use Python 3.13 and run these commands from the repository root:
 
 ```sh
-/opt/homebrew/bin/python3.13 -m venv .venv
+python3.13 -m venv .venv
 .venv/bin/python -m pip install --upgrade pip
 .venv/bin/python -m pip install -e '.[dev]'
 .venv/bin/ruff format --check src tests
@@ -122,7 +135,7 @@ The service also writes one JSON object per log line to standard output. A
 request-completion record contains the method, path, status code, and duration;
 request bodies and arbitrary environment variables are excluded.
 
-## Local container usage for Issue 005
+## Local container usage
 
 Build the image from the repository root:
 
@@ -152,7 +165,7 @@ curl http://127.0.0.1:8000/config-summary
 The image runs as the non-root `app` user. Stop the foreground container with
 `Ctrl-C`, or use `docker stop containerised-service` from another terminal.
 
-## CI quality and security gates for Issue 006
+## CI quality and security gates
 
 The workflow in [`.github/workflows/ci.yml`](.github/workflows/ci.yml) runs on
 pull requests and pushes to `main`. It installs the package and development
@@ -188,7 +201,7 @@ sha256:6a9075b289a699692f60f6936b84590c8ad487071145a909ae7c3de98025f3b2
 The workflow records the immutable image digest in the run summary and enables
 BuildKit provenance and SBOM attestations. The companion
 [GitOps repository](https://github.com/abdalrahmanattya/containerised-service-gitops)
-references this digest rather than a moving tag. Before publishing a future
+references this digest rather than a moving tag. Before publishing another
 release, confirm the tag, repository ownership, package visibility, and
 workflow permissions.
 
@@ -197,20 +210,19 @@ only through the reviewed tag workflow after explicit approval.
 
 ## Scope and safety boundaries
 
-The initial project does not include a database, authentication, a cloud API,
+The current service does not include a database, authentication, a cloud API,
 Kubernetes, or a production deployment. It must not store or reveal secrets.
-The configuration summary will expose only explicitly approved fields.
+The configuration summary exposes only explicitly approved fields.
 
-Building and running a container will be local. Configuring a Git remote,
+Building and running a container is local. Configuring a Git remote,
 publishing an image, adding credentials, or deploying the service are separate
-actions and require explicit learner approval.
+actions and require explicit maintainer approval.
 
-## Technology plan
+## Technology
 
-The accepted technology direction is:
+The current technology stack is:
 
-- Python 3.13 for the current implementation (the ADR permits Python 3.11 or
-  newer, but this machine provides Python 3.13);
+- Python 3.13 for the current implementation;
 - FastAPI served by Uvicorn;
 - pytest for automated tests;
 - Ruff for formatting and linting;
@@ -228,13 +240,12 @@ use the reviewed dependency pins and package version in `pyproject.toml`.
 | --- | --- |
 | `docs/requirements.md` | Agreed behaviour, acceptance criteria, and non-goals |
 | `docs/architecture.md` | Components, data flow, and trust boundaries |
-| `docs/development.md` | Current and eventual local workflows |
+| `docs/development.md` | Local development, CI, and release workflows |
 | `docs/issues/` | Ordered, bounded implementation issues |
 | `docs/decisions/` | Durable decisions and their trade-offs |
 | `src/containerised_service/` | Python application package |
 | `tests/` | Automated tests |
 | `pyproject.toml` | Package metadata, dependency pins, and tool configuration |
-| `docs/learning-roadmap.md` | The complete multi-project learning programme |
 | `CHANGELOG.md` | Notable user-visible changes |
 | `LICENSE` | MIT license for the repository |
 

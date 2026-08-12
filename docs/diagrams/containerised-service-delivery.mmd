@@ -1,0 +1,26 @@
+flowchart LR
+    caller([HTTP caller]) -->|GET /health, /version, /config-summary| app
+
+    subgraph runtime["Container runtime boundary"]
+      app["FastAPI service\nPython 3.13 / Uvicorn"]
+      env[("Startup environment\nallow-listed settings")]
+      logs["Structured JSON logs\nstdout"]
+      env --> app
+      app --> logs
+    end
+
+    subgraph delivery["GitHub Actions delivery boundary"]
+      source["Source + tests\npyproject.toml + Dockerfile"]
+      gates["Quality gates\nformat · lint · pytest"]
+      image["Container build + scan\nnon-root runtime · Trivy"]
+      release["Semantic tag release\nBuildx multi-arch image"]
+      registry[("GHCR\nimmutable digest")]
+      source --> gates --> image --> release --> registry
+    end
+
+    registry -->|digest update| gitops["Companion GitOps repository\nKubernetes desired state"]
+
+    classDef boundary fill:#eef6ff,stroke:#2563eb,color:#102a43,stroke-width:1px
+    classDef component fill:#f8fafc,stroke:#475569,color:#0f172a
+    class runtime,delivery boundary
+    class app,env,logs,source,gates,image,release,registry,gitops,caller component

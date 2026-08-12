@@ -4,7 +4,7 @@
 
 ## Why
 
-<!-- What problem or learning objective does it address? -->
+<!-- What problem does it address? -->
 
 ## Scope
 

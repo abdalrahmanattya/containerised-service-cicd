@@ -1,45 +1,44 @@
 # Development guide
 
 Run commands from the repository root unless a step says otherwise. This file
-distinguishes commands that work now from tools planned for later issues.
+documents commands that work with the current v0.1.3 service and delivery
+workflows.
 
 ## Current prerequisites
 
 - A POSIX-compatible shell
 - Git
+- Python 3.13
+- Docker (for image build and scan commands)
 
-The current machine has Git, Python 3.9.6, `/opt/homebrew/bin/python3.13`, and
-Docker Desktop 29.6.2. Issue 001 targets Python 3.13. Hadolint is not
-available; Trivy runs through its pinned Docker image. Ruff and pytest are
-installed into the project virtual environment rather than globally.
+The application targets Python 3.13. Trivy runs through its pinned Docker
+image; Ruff and pytest are installed into the project virtual environment.
 
 The GitHub remote is configured for CI execution. No registry, cloud account,
 or credentials are required.
 
-## Begin a work session
+## Inspect the repository
 
 1. Inspect `git status --short --branch`.
-2. Read `AGENTS.md` and the journal's **Resume here** section.
+2. Read the README and relevant architecture or requirements pages.
 3. Read recent history with `git log --oneline --decorate -5`.
-4. Read the current issue and state its small outcome and acceptance criteria.
-5. Inspect unexpected changes before doing anything else.
+4. Inspect unexpected changes before doing anything else.
 
 ## Current verification
 
-Run the durable-context and whitespace checks at every hand-off:
+Run the whitespace and repository-state checks when reviewing a change:
 
 ```sh
-./scripts/test-context-resume.sh
 git diff --check
 git status --short --branch
 ```
 
-## Issues 001–005 application commands
+## Application commands
 
 Run these from the repository root:
 
 ```sh
-/opt/homebrew/bin/python3.13 -m venv .venv
+python3.13 -m venv .venv
 .venv/bin/python -m pip install --upgrade pip
 .venv/bin/python -m pip install -e '.[dev]'
 .venv/bin/ruff format --check src tests
@@ -97,9 +96,9 @@ The Trivy command requires Docker network access to download its pinned scanner
 image and vulnerability database. A scan fails for fixed high or critical
 findings; see [`security.md`](security.md) before proposing an exception.
 
-The workflow is local-first: it has no registry login, image push, deployment,
-or secret input. The configured GitHub remote allows Actions to execute these
-checks, but no release artifact is published automatically.
+The CI workflow validates source and a local image; it does not log in to a
+registry, push an image, or deploy. The separate release workflow publishes a
+multi-architecture image only for semantic-version tags.
 
 ## Versioned image publication
 
@@ -141,22 +140,9 @@ were run, and show the expected or observed result. Functions should carry
 concise explanatory docstrings where their purpose is not obvious; comments
 before non-trivial loops should explain the loop's purpose or invariant.
 
-## Terminal restart context test
-
-1. Ensure the journal contains an accurate **Resume here** action.
-2. Run `./scripts/test-context-resume.sh`.
-3. Commit the reviewed change or clearly record why work is uncommitted.
-4. Start a fresh Codex session in this repository.
-5. Ask Codex to explain the project's purpose, rules, state, next action, and
-   working-tree status using repository evidence.
-
-The exercise passes when the answer identifies Project 3, its three endpoints,
-its safety boundaries, the current issue, and the actual Git state without
-depending on the previous conversation.
-
 ## External actions
 
 Inspect `git remote -v` before discussing remote execution. Configuring a
 remote, authenticating, publishing an image, or deploying are separate actions.
-They require an explicit destination, version, credential strategy, and learner
-approval; none is part of the default local workflow.
+They require an explicit destination, version, credential strategy, and
+maintainer approval; none is part of the default local workflow.
