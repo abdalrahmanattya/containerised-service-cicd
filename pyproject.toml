@@ -5,7 +5,7 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "containerised-service"
 version = "0.1.3"
-description = "A small internal service for practising container delivery"
+description = "A small internal service demonstrating container delivery"
 license = { file = "LICENSE" }
 requires-python = ">=3.13,<3.14"
 dependencies = [

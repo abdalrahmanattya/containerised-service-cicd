@@ -114,8 +114,8 @@ The workflow publishes `vMAJOR.MINOR.PATCH` tags to
 `ghcr.io/abdalrahmanattya/containerised-service` using `GITHUB_TOKEN`, and
 prints the resulting top-level digest in the GitHub Actions summary. Each
 release builds `linux/amd64` and `linux/arm64` manifests so the image can run
-on the Project 5 Docker Desktop target. BuildKit provenance and SBOM
-attestations are enabled. Do not push a release tag until the exact
+on the companion GitOps deployment's Docker Desktop target. BuildKit provenance
+and SBOM attestations are enabled. Do not push a release tag until the exact
 destination, version, package visibility, and permissions have been reviewed
 and explicitly approved.
 

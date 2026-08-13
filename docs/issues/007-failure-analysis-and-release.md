@@ -2,7 +2,7 @@
 
 ## Outcome
 
-Complete an evidence-led failure exercise, then document and tag the
+Complete an evidence-led failure analysis, then document and tag the
 first finished local release.
 
 ## Acceptance criteria

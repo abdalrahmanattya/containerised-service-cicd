@@ -1,4 +1,4 @@
-# Project 3 requirements
+# Service requirements
 
 ## Outcome
 
@@ -71,7 +71,7 @@ release artifacts.
   tests, caches, credentials, and unnecessary build tools.
 - The service must listen on the documented container port and accept runtime
   configuration through environment variables.
-- A local smoke test must exercise all three endpoints from the running image.
+- A local smoke test must verify all three endpoints from the running image.
 
 ## CI/CD requirements
 

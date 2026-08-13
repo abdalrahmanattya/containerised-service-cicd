@@ -38,6 +38,6 @@ override.tf.json
 .cache/
 tmp/
 
-# Projectless Codex working/deliverable folders
+# Local tooling working and deliverable folders
 work/
 outputs/

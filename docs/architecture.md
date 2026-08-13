@@ -74,7 +74,7 @@ the entire environment, request bodies, or secrets.
 
 ### Tests
 
-Exercise the application in process without opening a real network port where
+Run the application in process without opening a real network port where
 possible. Unit tests cover configuration; API tests cover status codes and JSON
 contracts; the CI workflow also verifies the packaged runtime boundary.
 

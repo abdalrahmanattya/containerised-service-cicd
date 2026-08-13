@@ -1,4 +1,4 @@
-# Project 3 issue plan
+# Delivery issue plan
 
 Implement these issues in order. Each issue should use a focused branch and
 commit, include its own tests, update user documentation when behaviour changes,
@@ -21,6 +21,6 @@ or invariant.
 | [004](004-structured-logging.md) | Structured application and request logs |
 | [005](005-container-image.md) | Reproducible, non-root container image |
 | [006](006-ci-quality-gates.md) | CI formatting, linting, tests, build, and scan |
-| [007](007-failure-exercise-and-release.md) | Failed-pipeline diagnosis and `v0.1.0` release |
+| [007](007-failure-analysis-and-release.md) | Failed-pipeline diagnosis and `v0.1.0` release |
 
 Container publication and deployment are not implicit parts of any issue.

@@ -11,12 +11,13 @@ versions follow [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 ### Added
 
 - Published the reviewed linux/amd64 and linux/arm64 GHCR image manifests.
-- Recorded the immutable multi-architecture image digest used by Project 5.
+- Recorded the immutable multi-architecture image digest used by the companion
+  GitOps deployment.
 - Added BuildKit provenance and SBOM attestations to the release workflow.
 
 ### Added
 
-- Project 3 requirements, architecture, service and delivery stack decision,
+- Service requirements, architecture, delivery stack decision,
   and seven-issue implementation plan.
 - A self-contained project introduction covering purpose, behaviour,
   usefulness, intended usage, and safety boundaries.
@@ -40,7 +41,7 @@ versions follow [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ### Changed
 
-- Replaced the reusable starter hand-off with Project 3 status and Issue 001 as
+- Replaced the reusable starter hand-off with service status and Issue 001 as
   the exact next implementation step.
 - Made the root README the primary user entry point.
 - Documented the verified Python 3.13 local development workflow.
@@ -60,12 +61,12 @@ versions follow [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ### Added
 
-- Reusable Phase 0 repository structure and beginner quick start.
+- Initial repository structure and local quick start.
 - Durable repository working notes and verification tooling.
 - Architecture, development, journal, and ADR documentation.
-- Automated structural check and manual terminal-restart context exercise.
+- Automated structural check and manual terminal-restart context check.
 - Pull request review template and cloud-focused safety checklist.
-- Project 3's FastAPI service with health, version, and configuration-summary
+- FastAPI service with health, version, and configuration-summary
   endpoints.
 - Validated configuration, structured JSON request logging, and a digest-pinned
   non-root Docker image.

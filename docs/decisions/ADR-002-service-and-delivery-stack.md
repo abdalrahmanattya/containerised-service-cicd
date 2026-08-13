@@ -2,11 +2,11 @@
 
 - **Status:** Accepted
 - **Date:** 2026-08-03
-- **Decision owners:** Learner and project maintainer
+- **Decision owners:** Service maintainers
 
 ## Context
 
-Project 3 needs a small HTTP service whose application behaviour is easy to
+The service needs a small HTTP surface whose application behaviour is easy to
 test while providing realistic dependency, container, logging, and pipeline
 work. The repository currently has Python 3.9.6 available, but Docker, Ruff,
 pytest, and `uv` are not installed. Planning must not silently install tools or
@@ -52,8 +52,8 @@ or deploy by default, and a remote repository is not assumed.
   can run.
 - Docker and scanning tools add setup time and are currently unavailable.
 - FastAPI and its test client add third-party dependencies for a very small API.
-- GitHub Actions cannot execute remotely until the learner explicitly chooses
-  and configures a remote repository.
+- GitHub Actions cannot execute remotely until maintainers explicitly choose
+  and configure a remote repository.
 - Vulnerability results can require judgement; a scanner result is evidence,
   not proof that an image is secure.
 
@@ -67,7 +67,8 @@ routing and response plumbing instead of API and delivery practices.
 ### Flask
 
 Viable and simpler in some respects, but not selected because FastAPI's typed
-contracts and in-process testing align better with the planned exercises.
+contracts and in-process testing align better with the planned verification
+work.
 
 ### Run only in Docker
 
