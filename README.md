@@ -103,9 +103,9 @@ flowchart LR
   Port --> Server[Uvicorn web server]
   Server --> API[FastAPI application]
   Settings[Allow-listed environment settings] --> API
-  API --> Health[/health]
-  API --> Version[/version]
-  API --> Summary[/config-summary]
+  API --> Health["/health"]
+  API --> Version["/version"]
+  API --> Summary["/config-summary"]
   API --> Logs[Structured JSON logs on standard output]
 ```
 
